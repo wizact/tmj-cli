@@ -1,0 +1,87 @@
+swagger: '2.0'
+info:
+  title: Trade Me Jobs API
+  description: Trade Me Jobs API definition. 
+  termsOfService: This document is a draft version and subject to change without prior notice. By using this API, you agree to our terms and conditions. For more information please visit http://developer.trademe.co.nz/api-terms/terms-and-conditions/.
+  contact: 
+    name: API Support
+    email: api@trademe.co.nz
+    url: http://developer.trademe.co.nz/
+  version: "0.1.0"
+host: api.tmsandbox.co.nz
+schemes:
+  - https
+basePath: /v1
+produces:
+  - application/json
+  - application/xml
+paths:
+  /Categories/{number}.{file_format}:
+    get:
+      summary: Retrieve general categories
+      description: |
+        This method returns general information about Trade Me Jobs categories. This method can be called anonymously.
+      externalDocs:
+        description: Retrieve general categories
+        url: http://developer.trademe.co.nz/api-reference/catalogue-methods/retrieve-general-categories/
+      parameters:
+        - name: depth
+          in: query
+          description: The category number of the root of the returned tree. If this parameter is empty, it returns a fictional category named “Root” with all the top categories included as subcategories.
+          required: false
+          type: integer
+        - name: number
+          in: path
+          description: The category number of the root of the returned tree. If this parameter is empty, it returns a fictional category named “Root” with all the top categories included as subcategories. Trade Me Jobs root category is 5000.
+          required: true
+          type: integer
+        - $ref: '#/parameters/file_format'
+      tags:
+        - Catalogue
+      responses:
+        200:
+          description: A category tree.
+          schema:
+            $ref: '#/definitions/CategoryTree'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ErrorResult'
+        400:
+          description: Category not found.
+          schema:
+            $ref: '#/definitions/ErrorResult'
+parameters:
+  file_format:
+    name: file_format
+    in: path
+    required: true
+    description: The format of the response. Accepted values are `xml` or `json`.
+    type: string
+definitions:
+  CategoryTree:
+    type: object
+    properties:
+      Name:
+        type: string
+        description: The name of the category.
+      Number:
+        type: string
+        description: A unique identifier for the category e.g. “5000-5001-5002-“. This number will be changed to a single value like “5002“ in future.
+      Path:
+        type: string
+        description: The full URL path of this category e.g. “/Trade-Me-Jobs/Accounting/Accountants”.
+      Subcategories:
+        type: array
+        items: 
+          type: object
+      HasClassifieds:
+        type: boolean
+        description: Indicates whether classifieds are allowed in this category.
+  ErrorResult:
+    type: object
+    properties:
+      Request:
+        type: string
+      ErrorDescription:
+        type: string
