@@ -1,0 +1,30 @@
+{
+  "name": "tmj-cli",
+  "version": "0.0.0",
+  "description": "Trade Me Jobs API client library (Unofficial)",
+  "main": "./src/app.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha ./test/**"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wizact/tmj-cli.git"
+  },
+  "keywords": [
+    "trade",
+    "me",
+    "jobs",
+    "api",
+    "client"
+  ],
+  "author": "Amir Mohtasebi <amir.mohtasebi@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wizact/tmj-cli/issues"
+  },
+  "homepage": "https://github.com/wizact/tmj-cli#readme"
+}
