@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bluebird": "registry:npm/bluebird#3.3.4+20160622205516",
     "request": "registry:npm/request#2.69.0+20160428223725"
   },
   "globalDependencies": {
