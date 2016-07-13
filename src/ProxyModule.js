@@ -1,4 +1,4 @@
 "use strict";
-var RetrieveCategoryProxy_1 = require("./proxy/RetrieveCategoryProxy");
-exports.RetrieveCategoryProxy = RetrieveCategoryProxy_1.RetrieveCategoryProxy;
+var CategoryProxy_1 = require("./proxy/CategoryProxy");
+exports.CategoryProxy = CategoryProxy_1.CategoryProxy;
 //# sourceMappingURL=ProxyModule.js.map

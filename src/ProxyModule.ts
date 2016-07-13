@@ -1,3 +1,3 @@
-import { RetrieveCategoryProxy } from "./proxy/RetrieveCategoryProxy";
+import { CategoryProxy } from "./proxy/CategoryProxy";
 
-export { RetrieveCategoryProxy };
+export { CategoryProxy };
