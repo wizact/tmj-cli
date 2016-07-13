@@ -1,14 +1,18 @@
 "use strict";
 var HttpClient_1 = require("../utility/HttpClient");
+var ConfigManager_1 = require("../utility/ConfigManager");
 var CategoryProxy;
 (function (CategoryProxy) {
     var CategoryClient = (function () {
-        function CategoryClient() {
+        function CategoryClient(configManager) {
             CategoryClient.httpClient = new HttpClient_1.default();
+            CategoryClient.configManager = configManager || new ConfigManager_1.ConfigManager.Configuration();
+            CategoryClient.configData = CategoryClient.configManager.get();
         }
         CategoryClient.prototype.retrieveGeneralCategory = function (categoryNumber) {
-            var ApiPath = "Categories";
-            return CategoryClient.httpClient.get("https://api.tmsandbox.co.nz/v1/" + ApiPath + "/" + categoryNumber + ".json");
+            var servicePath = "Categories";
+            var apiUri = CategoryClient.configData.ApiUri;
+            return CategoryClient.httpClient.get(apiUri + "/v1/" + servicePath + "/" + categoryNumber + ".json");
         };
         return CategoryClient;
     }());
