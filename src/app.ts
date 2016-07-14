@@ -22,3 +22,8 @@ let categoryClient = new CategoryProxy.CategoryClient();
 //     console.log(response[0].Name);
 //     console.log(response[0].SubCategories);
 // });
+
+// Retrieve Job Category Detail
+// categoryClient.retrieveCategoryDetail(5007).then((response) => {
+//     console.log(response.CanRelist);
+// });
