@@ -1,6 +1,6 @@
 {
   "name": "tmj-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Trade Me Jobs API client library (Unofficial)",
   "main": "./src/app.js",
   "directories": {
