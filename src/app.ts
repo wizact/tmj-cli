@@ -6,5 +6,19 @@ import { ConfigManager } from "./utility/ConfigManager";
 let config = new ConfigManager.Configuration();
 config.setEnvrionment(ConfigManager.Environment.Sandbox);
 
-let t = new CategoryProxy.CategoryClient();
-t.retrieveGeneralCategory(5000).then((res) => console.log(res.Name));
+let categoryClient = new CategoryProxy.CategoryClient();
+
+// Retrieve General Category
+// categoryClient.retrieveGeneralCategory(5000).then((response) => { 
+//     console.log(response.Subcategories[0].Name);
+//     console.log(response.Subcategories[0].Path);
+//     console.log(response.Subcategories[0].HasClassifieds);
+//     console.log(response.Subcategories[0].Number); 
+// });
+
+// Retrieve Job Category
+// categoryClient.retrieveJobCategory().then((response) => { 
+//     console.log(response[0].Code);
+//     console.log(response[0].Name);
+//     console.log(response[0].SubCategories);
+// });

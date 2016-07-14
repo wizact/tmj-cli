@@ -1,5 +1,6 @@
 import * as Promise from "bluebird";
 import { RetrieveCategory } from "../schema/RetrieveCategory";
+import { RetrieveJobCategory } from "../schema/RetrieveJobCategory";
 import HttpClient from "../utility/HttpClient";
 import { ConfigManager } from "../utility/ConfigManager";
 
@@ -18,6 +19,12 @@ export namespace CategoryProxy {
             let servicePath: string = "Categories";
             let apiUri: string = CategoryClient.configData.ApiUri; 
             return CategoryClient.httpClient.get<RetrieveCategory.Response>(`${apiUri}/v1/${servicePath}/${categoryNumber}.json`);
+        }
+
+        retrieveJobCategory(): Promise<RetrieveJobCategory.JobCategory[]> {
+            let servicePath: string = "Categories";
+            let apiUri: string = CategoryClient.configData.ApiUri; 
+            return CategoryClient.httpClient.get<RetrieveJobCategory.JobCategory[]>(`${apiUri}/v1/${servicePath}/Jobs.json`);
         }
     }
 }

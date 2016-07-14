@@ -14,6 +14,11 @@ var CategoryProxy;
             var apiUri = CategoryClient.configData.ApiUri;
             return CategoryClient.httpClient.get(apiUri + "/v1/" + servicePath + "/" + categoryNumber + ".json");
         };
+        CategoryClient.prototype.retrieveJobCategory = function () {
+            var servicePath = "Categories";
+            var apiUri = CategoryClient.configData.ApiUri;
+            return CategoryClient.httpClient.get(apiUri + "/v1/" + servicePath + "/Jobs.json");
+        };
         return CategoryClient;
     }());
     CategoryProxy.CategoryClient = CategoryClient;

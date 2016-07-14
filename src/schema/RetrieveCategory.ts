@@ -13,14 +13,7 @@ export namespace RetrieveCategory {
         Subcategories: Subcategory[];
     }
 
-    export interface Response {
-        Name: string;
-        Number: string;
-        Path: string;
+    export interface Response extends Category {
         Subcategories: Subcategory[];
-        Count: number;
-        IsRestricted: boolean;
-        HasLegalNotice: boolean;
-        HasClassifieds: boolean;
     }
 }
