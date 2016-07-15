@@ -23,6 +23,19 @@ export default class HttpClient {
             });
     }
 
+    post<T, K>(uri: string, requestBody: T): Promise<K> {
+        let postOptions: request.CoreOptions = {};
+        postOptions.body = JSON.stringify(requestBody);
+        return requestAsync.postAsync(uri, postOptions)
+            .then((result: any) => {
+                let response = this.transform<K>(result.body);
+                return response;
+                })
+            .catch((err) => {
+                throw new Error(err);
+            });
+    }
+
     private transform<T>(responseBody: string) {
         return (<T>JSON.parse(responseBody));
     }    

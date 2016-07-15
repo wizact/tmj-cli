@@ -1,5 +1,16 @@
 // Clients
-import { CategoryProxy } from "./ProxyModule";
+import  { 
+            CategoryProxy,
+            ListingProxy 
+        } from "./ProxyModule";
+
+// Schemas
+import  { 
+            RetrieveCategory, 
+            RetrieveJobCategory, 
+            CreateListing 
+        } from "./SchemaModule";
+
 import { ConfigManager } from "./utility/ConfigManager";
 
 // Loading config values
@@ -27,3 +38,20 @@ let categoryClient = new CategoryProxy.CategoryClient();
 // categoryClient.retrieveCategoryDetail(5007).then((response) => {
 //     console.log(response.CanRelist);
 // });
+
+let listingClient = new ListingProxy.ListingClient();
+let createListingRequest: CreateListing.Request = {
+    Category: "5007",
+    Title: "Test Job",
+    Description: [ "Test Description of Test Job" ],
+    IsClassified: true,
+    IsFeatured: false,
+    Attributes: [],
+    ExternalReferenceId: "ref",
+    ReturnListingDetails: true,
+    EmbeddedContent: { YouTubeVideoKey: "YouTube Key" },
+    IsBranded: false,
+    ShortDescription: "Short Description"
+};
+
+listingClient.createListing(createListingRequest).then((createListingResponse: CreateListing.Response) => console.log(createListingResponse));

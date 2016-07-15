@@ -16,6 +16,19 @@ var HttpClient = (function () {
             throw new Error(err);
         });
     };
+    HttpClient.prototype.post = function (uri, requestBody) {
+        var _this = this;
+        var postOptions = {};
+        postOptions.body = JSON.stringify(requestBody);
+        return requestAsync.postAsync(uri, postOptions)
+            .then(function (result) {
+            var response = _this.transform(result.body);
+            return response;
+        })
+            .catch(function (err) {
+            throw new Error(err);
+        });
+    };
     HttpClient.prototype.transform = function (responseBody) {
         return JSON.parse(responseBody);
     };

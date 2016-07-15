@@ -66,23 +66,19 @@ export namespace CreateListing {
     export interface Request {
         Category: string;
         Title: string;
-        Subtitle: string;
         Description: string[];
-        Duration: number;
-        EndDateTime: Date;
+        Duration?: number;
+        EndDateTime?: Date;
         IsClassified: boolean;
         IsFeatured: boolean;
-        PhotoIds: number[];
+        PhotoIds?: number[];
         Attributes: Attribute[];
-        VideoUrl: string;
-        IsClearance: boolean;
-        ExternalReferenceId: string;
-        Contacts: Contact[];
-        ReturnListingDetails: boolean;
+        ExternalReferenceId?: string;
+        ReturnListingDetails?: boolean;
         EmbeddedContent: EmbeddedContent;
         IsBranded: boolean;
         ShortDescription: string;
-        Photos: Photo[];
+        Photos?: Photo[];
     }
 
     export interface Response {
