@@ -4,19 +4,14 @@ var ConfigManager_1 = require("./utility/ConfigManager");
 var config = new ConfigManager_1.ConfigManager.Configuration();
 config.setEnvrionment(ConfigManager_1.ConfigManager.Environment.Sandbox);
 var categoryClient = new ProxyModule_1.CategoryProxy.CategoryClient();
-var listingClient = new ProxyModule_1.ListingProxy.ListingClient();
-var createListingRequest = {
-    Category: "5007",
-    Title: "Test Job",
-    Description: ["Test Description of Test Job"],
-    IsClassified: true,
-    IsFeatured: false,
-    Attributes: [],
-    ExternalReferenceId: "ref",
-    ReturnListingDetails: true,
-    EmbeddedContent: { YouTubeVideoKey: "YouTube Key" },
-    IsBranded: false,
-    ShortDescription: "Short Description"
+var https = require("https");
+var fs = require("fs");
+var options = {
+    key: fs.readFileSync("./cert/key.pem"),
+    cert: fs.readFileSync("./cert/cert.pem")
 };
-listingClient.createListing(createListingRequest).then(function (createListingResponse) { return console.log(createListingResponse); });
+https.createServer(options, function (req, res) {
+    res.writeHead(200);
+    res.end("hello world\n");
+}).listen(8000);
 //# sourceMappingURL=app.js.map

@@ -39,19 +39,32 @@ let categoryClient = new CategoryProxy.CategoryClient();
 //     console.log(response.CanRelist);
 // });
 
-let listingClient = new ListingProxy.ListingClient();
-let createListingRequest: CreateListing.Request = {
-    Category: "5007",
-    Title: "Test Job",
-    Description: [ "Test Description of Test Job" ],
-    IsClassified: true,
-    IsFeatured: false,
-    Attributes: [],
-    ExternalReferenceId: "ref",
-    ReturnListingDetails: true,
-    EmbeddedContent: { YouTubeVideoKey: "YouTube Key" },
-    IsBranded: false,
-    ShortDescription: "Short Description"
+// let listingClient = new ListingProxy.ListingClient();
+// let createListingRequest: CreateListing.Request = {
+//     Category: "5007",
+//     Title: "Test Job",
+//     Description: [ "Test Description of Test Job" ],
+//     IsClassified: true,
+//     IsFeatured: false,
+//     Attributes: [],
+//     ExternalReferenceId: "ref",
+//     ReturnListingDetails: true,
+//     EmbeddedContent: { YouTubeVideoKey: "YouTube Key" },
+//     IsBranded: false,
+//     ShortDescription: "Short Description"
+// };
+
+// listingClient.createListing(createListingRequest).then((createListingResponse: CreateListing.Response) => console.log(createListingResponse));
+
+import * as https from "https";
+import * as fs from "fs";
+
+const options: https.ServerOptions = {
+  key: fs.readFileSync("./cert/key.pem"),
+  cert: fs.readFileSync("./cert/cert.pem")
 };
 
-listingClient.createListing(createListingRequest).then((createListingResponse: CreateListing.Response) => console.log(createListingResponse));
+https.createServer(options, (req, res) => {
+  res.writeHead(200);
+  res.end("hello world\n");
+}).listen(8000);

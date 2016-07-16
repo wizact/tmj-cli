@@ -1,6 +1,7 @@
 import * as request from "request";
 import * as Promise from "bluebird";
 import { RequestAsync } from "./IRequestAsync";
+import * as qs from "querystring";
 
 const requestAsync: RequestAsync.IRequestAsync = <RequestAsync.IRequestAsync>Promise.promisifyAll(request);
 
@@ -9,7 +10,7 @@ const requestAsync: RequestAsync.IRequestAsync = <RequestAsync.IRequestAsync>Pro
  */
 export default class HttpClient {
     constructor() {
-
+        
     }
 
     get<T>(uri: string): Promise<T> {
