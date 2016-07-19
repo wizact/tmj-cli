@@ -56,15 +56,18 @@ let categoryClient = new CategoryProxy.CategoryClient();
 
 // listingClient.createListing(createListingRequest).then((createListingResponse: CreateListing.Response) => console.log(createListingResponse));
 
-import * as https from "https";
-import * as fs from "fs";
+// import * as https from "https";
+// import * as fs from "fs";
 
-const options: https.ServerOptions = {
-  key: fs.readFileSync("./cert/key.pem"),
-  cert: fs.readFileSync("./cert/cert.pem")
-};
+// const options: https.ServerOptions = {
+//   key: fs.readFileSync("./cert/key.pem"),
+//   cert: fs.readFileSync("./cert/cert.pem")
+// };
 
-https.createServer(options, (req, res) => {
-  res.writeHead(200);
-  res.end("hello world\n");
-}).listen(8000);
+// https.createServer(options, (req, res) => {
+//   res.writeHead(200);
+//   res.end("hello world\n");
+// }).listen(8000);
+
+import { TMAuth } from "./utility/TMAuth";
+new TMAuth().RequestToken();

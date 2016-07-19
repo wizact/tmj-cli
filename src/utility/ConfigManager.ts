@@ -1,6 +1,8 @@
 export namespace ConfigManager {
     export interface IConfigData {
         ApiUri: string;
+        ConsumerKey: string;
+        ConsumerSecret: string;
     }
     
     export enum Environment {
@@ -18,8 +20,8 @@ export namespace ConfigManager {
         static localConfig: { [ id: number ]: IConfigData; } = {};
         static currentEnv: Environment = Environment.NotSet;
         constructor() {
-            Configuration.localConfig[Environment.Sandbox] = { ApiUri : "https://api.tmsandbox.co.nz/" };
-            Configuration.localConfig[Environment.Production] = { ApiUri : "https://api.trademe.co.nz/" }; 
+            Configuration.localConfig[Environment.Sandbox] = { ApiUri : "https://api.tmsandbox.co.nz/", ConsumerKey: "", ConsumerSecret: "" };
+            Configuration.localConfig[Environment.Production] = { ApiUri : "https://api.trademe.co.nz/", ConsumerKey: "", ConsumerSecret: ""  }; 
         }
 
         setEnvrionment(env: Environment) {

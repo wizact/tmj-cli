@@ -9,8 +9,8 @@ var ConfigManager;
     var Environment = ConfigManager.Environment;
     var Configuration = (function () {
         function Configuration() {
-            Configuration.localConfig[Environment.Sandbox] = { ApiUri: "https://api.tmsandbox.co.nz/" };
-            Configuration.localConfig[Environment.Production] = { ApiUri: "https://api.trademe.co.nz/" };
+            Configuration.localConfig[Environment.Sandbox] = { ApiUri: "https://api.tmsandbox.co.nz/", ConsumerKey: "", ConsumerSecret: "" };
+            Configuration.localConfig[Environment.Production] = { ApiUri: "https://api.trademe.co.nz/", ConsumerKey: "", ConsumerSecret: "" };
         }
         Configuration.prototype.setEnvrionment = function (env) {
             if (Configuration.currentEnv !== Environment.NotSet) {
