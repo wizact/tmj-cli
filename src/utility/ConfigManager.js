@@ -11,8 +11,6 @@ var ConfigManager;
     var Environment = ConfigManager.Environment;
     var Configuration = (function () {
         function Configuration() {
-            Configuration.localConfig[Environment.Sandbox] = { ApiUri: "https://api.tmsandbox.co.nz/", ConsumerKey: "", ConsumerSecret: "" };
-            Configuration.localConfig[Environment.Production] = { ApiUri: "https://api.trademe.co.nz/", ConsumerKey: "", ConsumerSecret: "" };
         }
         Configuration.prototype.setEnvrionment = function (env) {
             if (Configuration.currentEnv !== Environment.NotSet) {
@@ -23,12 +21,27 @@ var ConfigManager;
             }
             Configuration.currentEnv = env;
             var configPath = this.getConfigPath();
-            console.log(fs.readFileSync(configPath, "utf8"));
+            this.loadConfigFile(configPath);
         };
         Configuration.prototype.getConfigPath = function () {
             var scriptPath = process.argv[1];
             var dirPath = path.dirname(scriptPath);
-            return path.normalize("" + dirPath + path.sep + ".." + path.sep + "tmj-cli.json");
+            var relativePath = "";
+            for (var index = 0; index < 5; index++) {
+                var upFolder = "..";
+                var configPath = path.normalize("" + dirPath + path.sep + relativePath + "tmj-cli.json");
+                console.log(configPath);
+                if (fs.existsSync(configPath)) {
+                    return configPath;
+                }
+                relativePath = relativePath + ".." + path.sep;
+            }
+            throw new Error("tmj-cli config file cannot be found.");
+        };
+        Configuration.prototype.loadConfigFile = function (configPath) {
+            var loadedConfig = JSON.parse(fs.readFileSync(configPath, "utf8"));
+            Configuration.localConfig[Environment.Sandbox] = loadedConfig["sandbox"];
+            Configuration.localConfig[Environment.Production] = loadedConfig["production"];
         };
         Configuration.prototype.get = function () {
             if (Configuration.currentEnv === Environment.NotSet) {

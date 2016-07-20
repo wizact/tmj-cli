@@ -71,5 +71,3 @@ let categoryClient = new CategoryProxy.CategoryClient();
 
 import { TMAuth } from "./utility/TMAuth";
 new TMAuth().RequestToken();
-
-console.log(process.argv);

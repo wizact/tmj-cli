@@ -23,10 +23,7 @@ export namespace ConfigManager {
     export class Configuration implements IConfiguration {   
         static localConfig: { [ id: number ]: IConfigData; } = {};
         static currentEnv: Environment = Environment.NotSet;
-        constructor() { 
-            Configuration.localConfig[Environment.Sandbox] = { ApiUri : "https://api.tmsandbox.co.nz/", ConsumerKey: "", ConsumerSecret: "" };
-            Configuration.localConfig[Environment.Production] = { ApiUri : "https://api.trademe.co.nz/", ConsumerKey: "", ConsumerSecret: ""  }; 
-        }
+        constructor() { }
 
         setEnvrionment(env: Environment) {
             if (Configuration.currentEnv !== Environment.NotSet) {
@@ -39,14 +36,36 @@ export namespace ConfigManager {
             Configuration.currentEnv = env;
             
             let configPath = this.getConfigPath();
-            console.log(fs.readFileSync(configPath, "utf8"));
-
+            this.loadConfigFile(configPath);
+            
         }
 
+        /*
+        * going up file level from the execution level until it finds
+        * the tmj-cli.json. If the file cannot be found, it throws. 
+        */
         private getConfigPath() {
             let scriptPath = process.argv[1];
             let dirPath = path.dirname(scriptPath);
-            return path.normalize(`${dirPath}${path.sep}..${path.sep}tmj-cli.json`);
+            let relativePath = "";
+            for (let index = 0; index < 5; index++) {
+                const upFolder = "..";
+                let configPath = path.normalize(`${dirPath}${path.sep}${relativePath}tmj-cli.json`);
+                console.log(configPath);
+                if (fs.existsSync(configPath)) {
+                    return configPath;
+                }
+
+                relativePath = `${relativePath}..${path.sep}`;
+            }
+
+            throw new Error("tmj-cli config file cannot be found."); 
+        }
+
+        private loadConfigFile(configPath: string) {
+            let loadedConfig = <IConfigData>JSON.parse(fs.readFileSync(configPath, "utf8"));
+            Configuration.localConfig[Environment.Sandbox] = loadedConfig["sandbox"];
+            Configuration.localConfig[Environment.Production] = loadedConfig["production"];
         }
 
         get(): any {
