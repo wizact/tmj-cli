@@ -1,4 +1,6 @@
-import  * as path from "path";
+import * as path    from "path";
+import * as fs      from "fs";
+
 
 export namespace ConfigManager {
     export interface IConfigData {
@@ -27,7 +29,6 @@ export namespace ConfigManager {
         }
 
         setEnvrionment(env: Environment) {
-            this.getConfigPath();
             if (Configuration.currentEnv !== Environment.NotSet) {
                 throw new Error("Cannot reset environment");
             }
@@ -36,12 +37,16 @@ export namespace ConfigManager {
                 throw new Error("Invalid environment");
             }
             Configuration.currentEnv = env;
+            
+            let configPath = this.getConfigPath();
+            console.log(fs.readFileSync(configPath, "utf8"));
+
         }
 
         private getConfigPath() {
             let scriptPath = process.argv[1];
             let dirPath = path.dirname(scriptPath);
-            console.log(path.normalize(`${dirPath}${path.sep}..${path.sep}tmj-cli.json`));
+            return path.normalize(`${dirPath}${path.sep}..${path.sep}tmj-cli.json`);
         }
 
         get(): any {

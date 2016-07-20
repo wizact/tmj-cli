@@ -1,5 +1,6 @@
 "use strict";
 var path = require("path");
+var fs = require("fs");
 var ConfigManager;
 (function (ConfigManager) {
     (function (Environment) {
@@ -14,7 +15,6 @@ var ConfigManager;
             Configuration.localConfig[Environment.Production] = { ApiUri: "https://api.trademe.co.nz/", ConsumerKey: "", ConsumerSecret: "" };
         }
         Configuration.prototype.setEnvrionment = function (env) {
-            this.getConfigPath();
             if (Configuration.currentEnv !== Environment.NotSet) {
                 throw new Error("Cannot reset environment");
             }
@@ -22,11 +22,13 @@ var ConfigManager;
                 throw new Error("Invalid environment");
             }
             Configuration.currentEnv = env;
+            var configPath = this.getConfigPath();
+            console.log(fs.readFileSync(configPath, "utf8"));
         };
         Configuration.prototype.getConfigPath = function () {
             var scriptPath = process.argv[1];
             var dirPath = path.dirname(scriptPath);
-            console.log(path.normalize("" + dirPath + path.sep + ".." + path.sep + "tmj-cli.json"));
+            return path.normalize("" + dirPath + path.sep + ".." + path.sep + "tmj-cli.json");
         };
         Configuration.prototype.get = function () {
             if (Configuration.currentEnv === Environment.NotSet) {
