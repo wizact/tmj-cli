@@ -13,8 +13,6 @@ export class TMAuth {
     constructor(configManager?: ConfigManager.IConfiguration) {
         TMAuth.configManager = configManager || new ConfigManager.Configuration();
         TMAuth.configData = TMAuth.configManager.get();
-        console.log(TMAuth.configData.ApiUri);
-        
     }
 
     private generateNounce(): string {

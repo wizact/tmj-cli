@@ -5,7 +5,6 @@ var TMAuth = (function () {
     function TMAuth(configManager) {
         TMAuth.configManager = configManager || new ConfigManager_1.ConfigManager.Configuration();
         TMAuth.configData = TMAuth.configManager.get();
-        console.log(TMAuth.configData.ApiUri);
     }
     TMAuth.prototype.generateNounce = function () {
         var randomNumber = Math.random() * 10000;
