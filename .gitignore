@@ -41,5 +41,8 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-#main config files
+# main config files
 tmj-cli.json
+
+# cache files
+.tscache
