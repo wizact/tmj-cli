@@ -5,6 +5,22 @@ tmj-cli is a client written in TypeScript to expose some of the Job specific fun
 ## Usage
 
 ### TypeScript
+* Create a tmj-cli.json file. We check up to five parent directory relative to `process.argv` to find it.
+```javascript
+{
+    "sandbox": { 
+        "ApiUri" : "https://api.tmsandbox.co.nz/", 
+        "ConsumerKey": "<not set>", 
+        "ConsumerSecret": "<not set>" 
+        },
+    "production": {
+        "ApiUri" : "https://api.trademe.co.nz/", 
+        "ConsumerKey": "<not set>", 
+        "ConsumerSecret": "<not set>" 
+        }
+}
+```
+
 * Import the following modules
 ```javascript
 import { CategoryProxy } from "./ProxyModule";
