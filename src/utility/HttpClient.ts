@@ -23,14 +23,8 @@ export default class HttpClient {
         }
         return requestAsync.getAsync(uri, getOptions)
             .then((result: any) => {
-                if ((<IncomingMessage>result !== undefined && 
-                    <IncomingMessage>result).headers["content-type"] !== null && 
-                    (((<IncomingMessage>result).headers["content-type"]).indexOf("application/json") < 0)) {
-                        return result.body;
-                }
-                let response = this.transform<T>(result.body);
-                return response;
-                })
+                return this.map<T>(result);    
+            })
             .catch((err) => {
                 throw new Error(err);
             });
@@ -41,12 +35,21 @@ export default class HttpClient {
         postOptions.body = JSON.stringify(requestBody);
         return requestAsync.postAsync(uri, postOptions)
             .then((result: any) => {
-                let response = this.transform<K>(result.body);
-                return response;
-                })
+                return this.map<T>(result);
+            })
             .catch((err) => {
                 throw new Error(err);
             });
+    }
+
+    private map<T>(responseBody: any) {
+        if ((<IncomingMessage>responseBody !== undefined && 
+             <IncomingMessage>responseBody).headers["content-type"] !== null && 
+             (((<IncomingMessage>responseBody).headers["content-type"]).indexOf("application/json") < 0)) {
+                        return responseBody.body;
+             }
+            let response = this.transform<T>(responseBody.body);
+            return response;
     }
 
     private transform<T>(responseBody: string) {

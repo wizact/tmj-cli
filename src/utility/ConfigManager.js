@@ -30,7 +30,6 @@ var ConfigManager;
             for (var index = 0; index < 5; index++) {
                 var upFolder = "..";
                 var configPath = path.normalize("" + dirPath + path.sep + relativePath + "tmj-cli.json");
-                console.log(configPath);
                 if (fs.existsSync(configPath)) {
                     return configPath;
                 }

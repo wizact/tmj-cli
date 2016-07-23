@@ -70,6 +70,8 @@ let categoryClient = new CategoryProxy.CategoryClient();
 // }).listen(8000);
 
 import { TMAuth } from "./utility/TMAuth";
-new TMAuth().RequestToken().then(rt => {
-  
+let tmAuth = new TMAuth();
+tmAuth.RequestToken().then(rt => {
+  // Should redirect to this Url
+  console.log(tmAuth.GetAuthorizeUri(rt));
 }).catch(e => { throw e; });

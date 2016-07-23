@@ -8,6 +8,7 @@ export namespace ConfigManager {
         OAuthRequestTokenUri: string;
         OAuthAuthorizeUri: string;
         OAuthAccessTokenUri: string;
+        CallBackUrl?: string;
         ConsumerKey: string;
         ConsumerSecret: string;
     }
@@ -54,7 +55,6 @@ export namespace ConfigManager {
             for (let index = 0; index < 5; index++) {
                 const upFolder = "..";
                 let configPath = path.normalize(`${dirPath}${path.sep}${relativePath}tmj-cli.json`);
-                console.log(configPath);
                 if (fs.existsSync(configPath)) {
                     return configPath;
                 }

@@ -1,6 +1,7 @@
 import * as request from "request";
 import * as Promise from "bluebird";
 import HttpClient from "./HttpClient";
+import * as qs from "query-string";
 import { TMAuthData, 
          SignatureMethodType, 
          Scope, 
@@ -22,7 +23,8 @@ export class TMAuth {
             consumerKey: TMAuth.configData.ConsumerKey,
             consumerSecret: TMAuth.configData.ConsumerSecret,
             authVersion: AuthVersion,
-            signatureMethod: SignatureMethodType
+            signatureMethod: SignatureMethodType,
+            callbackUrl: TMAuth.configData.CallBackUrl
         };
     }
 
@@ -35,7 +37,7 @@ export class TMAuth {
     }
 
     private getRequestTokenHeader(): string {
-        return `OAuth oauth_consumer_key=${this.authData.consumerKey}, oauth_version=${this.authData.authVersion}, oauth_timestamp=${this.getEpoch()}, oauth_nonce=${this.generateNounce()}, oauth_signature_method=${SignatureMethodType}, oauth_signature=${TMAuth.configData.ConsumerSecret}%26`;
+        return `OAuth oauth_callback=${this.authData.callbackUrl}, oauth_consumer_key=${this.authData.consumerKey}, oauth_version=${this.authData.authVersion}, oauth_timestamp=${this.getEpoch()}, oauth_nonce=${this.generateNounce()}, oauth_signature_method=${SignatureMethodType}, oauth_signature=${TMAuth.configData.ConsumerSecret}%26`;
     }
 
     RequestToken(): Promise<TMAuthRequestTokenResponse> {
@@ -43,8 +45,19 @@ export class TMAuth {
         let header = this.getRequestTokenHeader();
         return TMAuth.httpClient.get<string>(requestTokenUri, header).then(rt => { 
             let response: TMAuthRequestTokenResponse = {};
-            // TODO: Map response to the type
+            let qsParts = qs.parse(rt);
+            response.oauth_token = qsParts["oauth_token"];
+            response.oauth_token_secret = qsParts["oauth_token_secret"];
+            if (qsParts.oauth_token === undefined || 
+                qsParts.oauth_token_secret === undefined) {
+                throw new Error(rt);
+            }
             return response;
         });
+    }
+
+    GetAuthorizeUri(authRequestTokenResponse: TMAuthRequestTokenResponse) {
+        let authorizeUri = `${TMAuth.configData.OAuthAuthorizeUri}?oauth_token=${authRequestTokenResponse.oauth_token}`;
+        return authorizeUri;
     }
 }
