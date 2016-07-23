@@ -7,7 +7,11 @@ export interface TMAuthData {
     consumerSecret: string;
     callbackUrl?: string;
     authVersion: string;
-    nounce?: string;
     signatureMethod: string;
     signature?: string;
+}
+
+export interface TMAuthRequestTokenResponse {
+    oauth_token?: string;
+    oauth_token_secret?: string;
 }

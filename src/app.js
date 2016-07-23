@@ -5,5 +5,6 @@ var config = new ConfigManager_1.ConfigManager.Configuration();
 config.setEnvrionment(ConfigManager_1.ConfigManager.Environment.Sandbox);
 var categoryClient = new ProxyModule_1.CategoryProxy.CategoryClient();
 var TMAuth_1 = require("./utility/TMAuth");
-new TMAuth_1.TMAuth().RequestToken();
+new TMAuth_1.TMAuth().RequestToken().then(function (rt) {
+}).catch(function (e) { throw e; });
 //# sourceMappingURL=app.js.map

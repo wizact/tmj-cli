@@ -70,4 +70,6 @@ let categoryClient = new CategoryProxy.CategoryClient();
 // }).listen(8000);
 
 import { TMAuth } from "./utility/TMAuth";
-new TMAuth().RequestToken();
+new TMAuth().RequestToken().then(rt => {
+  
+}).catch(e => { throw e; });

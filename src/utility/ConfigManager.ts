@@ -5,6 +5,9 @@ import * as fs      from "fs";
 export namespace ConfigManager {
     export interface IConfigData {
         ApiUri: string;
+        OAuthRequestTokenUri: string;
+        OAuthAuthorizeUri: string;
+        OAuthAccessTokenUri: string;
         ConsumerKey: string;
         ConsumerSecret: string;
     }
