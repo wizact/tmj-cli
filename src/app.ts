@@ -12,6 +12,7 @@ import  {
         } from "./SchemaModule";
 
 import { ConfigManager } from "./utility/ConfigManager";
+import * as url from "url";
 
 // Loading config values
 let config = new ConfigManager.Configuration();
@@ -56,22 +57,31 @@ let categoryClient = new CategoryProxy.CategoryClient();
 
 // listingClient.createListing(createListingRequest).then((createListingResponse: CreateListing.Response) => console.log(createListingResponse));
 
-// import * as https from "https";
-// import * as fs from "fs";
+import * as https from "https";
+import * as http from "http";
+import * as fs from "fs";
+import * as qs from "query-string";
+import { TMAuthAuthorizeResponse } from "./utility/TMAuthData";
 
-// const options: https.ServerOptions = {
-//   key: fs.readFileSync("./cert/key.pem"),
-//   cert: fs.readFileSync("./cert/cert.pem")
-// };
+const options: https.ServerOptions = {
+  key: fs.readFileSync("./src/cert/key.pem"),
+  cert: fs.readFileSync("./src/cert/cert.pem")
+};
 
-// https.createServer(options, (req, res) => {
-//   res.writeHead(200);
-//   res.end("hello world\n");
-// }).listen(8000);
+https.createServer(options, (req: http.IncomingMessage, res: http.ServerResponse) => {
+   res.writeHead(200);
+   let queryParams = qs.parse(req.url.replace("/", "").replace("?", ""));
+   let authResponse = <TMAuthAuthorizeResponse>queryParams;
+   if (!!(authResponse.oauth_token) && !!(authResponse.oauth_verifier)) {
+     res.end(`${authResponse.oauth_token}, ${authResponse.oauth_verifier}`);
+   } else {
+     res.end("Something went wrong!");
+   }
+ }).listen(8080);
 
-import { TMAuth } from "./utility/TMAuth";
-let tmAuth = new TMAuth();
-tmAuth.RequestToken().then(rt => {
-  // Should redirect to this Url
-  console.log(tmAuth.GetAuthorizeUri(rt));
-}).catch(e => { throw e; });
+// import { TMAuth } from "./utility/TMAuth";
+// let tmAuth = new TMAuth();
+// tmAuth.RequestToken().then(rt => {
+//   // Should redirect to this Url
+//   console.log(tmAuth.GetAuthorizeUri(rt));
+// }).catch(e => { throw e; });

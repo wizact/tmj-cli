@@ -15,3 +15,8 @@ export interface TMAuthRequestTokenResponse {
     oauth_token?: string;
     oauth_token_secret?: string;
 }
+
+export interface TMAuthAuthorizeResponse {
+    oauth_token?: string;
+    oauth_verifier?: string;
+}
