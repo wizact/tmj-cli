@@ -44,6 +44,14 @@ var TMAuth = (function () {
         var authorizeUri = TMAuth.configData.OAuthAuthorizeUri + "?oauth_token=" + authRequestTokenResponse.oauth_token;
         return authorizeUri;
     };
+    TMAuth.prototype.getAccessTokenHeader = function (oAuthToken, oAuthVerifier, oAuthTokenSecret) {
+        return "OAuth oauth_verifier=" + oAuthVerifier + ", oauth_consumer_key=" + TMAuth.configData.ConsumerKey + ", oauth_token=" + oAuthToken + ", oauth_version=" + this.authData.authVersion + ", oauth_timestamp=" + this.getEpoch() + ", oauth_nonce=" + this.generateNounce() + ", oauth_signature_method=" + TMAuthData_1.SignatureMethodType + ", oauth_signature=" + TMAuth.configData.ConsumerSecret + "%26" + oAuthTokenSecret;
+    };
+    TMAuth.prototype.AccessToken = function (oAuthToken, oAuthVerifier) {
+        var accessTokenUri = "" + TMAuth.configData.OAuthAccessTokenUri;
+        var oAuthTokenSecret = "";
+        var header = this.getAccessTokenHeader(oAuthToken, oAuthVerifier, oAuthTokenSecret);
+    };
     return TMAuth;
 }());
 exports.TMAuth = TMAuth;

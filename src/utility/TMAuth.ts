@@ -36,6 +36,8 @@ export class TMAuth {
         return (new Date).getTime().toString();
     }
 
+    // Step 1
+
     private getRequestTokenHeader(): string {
         return `OAuth oauth_callback=${this.authData.callbackUrl}, oauth_consumer_key=${this.authData.consumerKey}, oauth_version=${this.authData.authVersion}, oauth_timestamp=${this.getEpoch()}, oauth_nonce=${this.generateNounce()}, oauth_signature_method=${SignatureMethodType}, oauth_signature=${TMAuth.configData.ConsumerSecret}%26`;
     }
@@ -56,8 +58,22 @@ export class TMAuth {
         });
     }
 
+    // Step 2
+
     GetAuthorizeUri(authRequestTokenResponse: TMAuthRequestTokenResponse) {
         let authorizeUri = `${TMAuth.configData.OAuthAuthorizeUri}?oauth_token=${authRequestTokenResponse.oauth_token}`;
         return authorizeUri;
+    }
+
+    // Step 3
+
+    getAccessTokenHeader(oAuthToken: string, oAuthVerifier: string, oAuthTokenSecret: string) {
+        return `OAuth oauth_verifier=${oAuthVerifier}, oauth_consumer_key=${TMAuth.configData.ConsumerKey}, oauth_token=${oAuthToken}, oauth_version=${this.authData.authVersion}, oauth_timestamp=${this.getEpoch()}, oauth_nonce=${this.generateNounce()}, oauth_signature_method=${SignatureMethodType}, oauth_signature=${TMAuth.configData.ConsumerSecret}%26${oAuthTokenSecret}`;
+    }
+
+    AccessToken(oAuthToken: string, oAuthVerifier: string) {
+        let accessTokenUri = `${TMAuth.configData.OAuthAccessTokenUri}`;
+        let oAuthTokenSecret: string = "";
+        let header = this.getAccessTokenHeader(oAuthToken, oAuthVerifier, oAuthTokenSecret);
     }
 }
