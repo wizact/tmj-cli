@@ -6,7 +6,8 @@ import { TMAuthData,
          SignatureMethodType, 
          Scope, 
          AuthVersion,
-         TMAuthRequestTokenResponse
+         TMAuthRequestTokenResponse,
+         TMAuthAuthorizeResponse
        } from "./TMAuthData";
 import { ConfigManager } from "../utility/ConfigManager";
 
@@ -71,9 +72,9 @@ export class TMAuth {
         return `OAuth oauth_verifier=${oAuthVerifier}, oauth_consumer_key=${TMAuth.configData.ConsumerKey}, oauth_token=${oAuthToken}, oauth_version=${this.authData.authVersion}, oauth_timestamp=${this.getEpoch()}, oauth_nonce=${this.generateNounce()}, oauth_signature_method=${SignatureMethodType}, oauth_signature=${TMAuth.configData.ConsumerSecret}%26${oAuthTokenSecret}`;
     }
 
-    AccessToken(oAuthToken: string, oAuthVerifier: string) {
+    AccessToken(tmAuthAuthorizeResponse: TMAuthAuthorizeResponse, oAuthTokenSecret: string) {
         let accessTokenUri = `${TMAuth.configData.OAuthAccessTokenUri}`;
-        let oAuthTokenSecret: string = "";
-        let header = this.getAccessTokenHeader(oAuthToken, oAuthVerifier, oAuthTokenSecret);
+        let header = this.getAccessTokenHeader(tmAuthAuthorizeResponse.oauth_token, tmAuthAuthorizeResponse.oauth_verifier, oAuthTokenSecret);
+        console.log(header);
     }
 }
