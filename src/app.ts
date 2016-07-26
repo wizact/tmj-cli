@@ -1,3 +1,29 @@
+import * as express from "express";
+import * as bodyParser from "body-parser";
+import * as session from "express-session";
+import * as https from "https";
+import * as http from "http";
+import * as fs from "fs";
+
+// routes
+import * as statusRoute from "./routes/status"; 
+
+let app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ resave: false, saveUninitialized: false, secret: "text secret value"}));
+
+app.use("/status", statusRoute.router);
+
+const options: https.ServerOptions = {
+  key: fs.readFileSync("./src/cert/key.pem"),
+  cert: fs.readFileSync("./src/cert/cert.pem")
+};
+
+let server = https.createServer(options, app).listen(process.env.PORT || 8080);
+
+/*
 // Clients
 import  { 
             CategoryProxy,
@@ -19,6 +45,9 @@ let config = new ConfigManager.Configuration();
 config.setEnvrionment(ConfigManager.Environment.Sandbox);
 
 let categoryClient = new CategoryProxy.CategoryClient();
+
+*/
+
 
 // Retrieve General Category
 // categoryClient.retrieveGeneralCategory(5000).then((response) => { 
@@ -57,16 +86,12 @@ let categoryClient = new CategoryProxy.CategoryClient();
 
 // listingClient.createListing(createListingRequest).then((createListingResponse: CreateListing.Response) => console.log(createListingResponse));
 
-import * as https from "https";
-import * as http from "http";
-import * as fs from "fs";
+
+/*
 import * as qs from "query-string";
 import { TMAuthAuthorizeResponse } from "./utility/TMAuthData";
 
-const options: https.ServerOptions = {
-  key: fs.readFileSync("./src/cert/key.pem"),
-  cert: fs.readFileSync("./src/cert/cert.pem")
-};
+
 
 https.createServer(options, (req: http.IncomingMessage, res: http.ServerResponse) => {
    res.writeHead(200);
@@ -78,6 +103,7 @@ https.createServer(options, (req: http.IncomingMessage, res: http.ServerResponse
      res.end("Something went wrong!");
    }
  }).listen(8080);
+ */
 
 // import { TMAuth } from "./utility/TMAuth";
 // let tmAuth = new TMAuth();
