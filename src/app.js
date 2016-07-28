@@ -4,17 +4,25 @@ var express = require("express");
 var fs = require("fs");
 var https = require("https");
 var session = require("express-session");
+var expressjwt = require("express-jwt");
 var authRoute = require("./routes/auth");
 var statusRoute = require("./routes/status");
 var ConfigManager_1 = require("./utility/ConfigManager");
 var config = new ConfigManager_1.ConfigManager.Configuration();
 config.setEnvrionment(ConfigManager_1.ConfigManager.Environment.Sandbox);
+var secretKey = new ConfigManager_1.ConfigManager.Configuration().get().SecretKey;
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ resave: false, saveUninitialized: false, secret: "text secret value" }));
+app.use(session({ resave: false, saveUninitialized: false, secret: secretKey }));
+app.use(expressjwt({ secret: secretKey }).unless({ path: ["/auth"] }));
 app.use("/auth", authRoute.router);
 app.use("/status", statusRoute.router);
+app.use(function (err, req, res, next) {
+    if (err.name === "UnauthorizedError") {
+        res.status(401).json("No authorization token was found");
+    }
+});
 var options = {
     key: fs.readFileSync("./src/cert/key.pem"),
     cert: fs.readFileSync("./src/cert/cert.pem")

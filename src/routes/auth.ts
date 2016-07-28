@@ -1,6 +1,9 @@
 import * as express                 from "express";
+import * as jwt                     from "jsonwebtoken";
+import { ConfigManager }            from "../utility/ConfigManager";
 import { TMAuth }                   from "../utility/TMAuth";
-import { TMAuthAuthorizeResponse }  from "../utility/TMAuthData";
+import { TMAuthAuthorizeResponse,
+         TMTokenBearerSingature }   from "../utility/TMAuthData";
 
 export let router = express.Router();
 
@@ -12,7 +15,7 @@ router.route("/RequestToken").get(function(req: express.Request, res: express.Re
     if (rt.oauth_token_secret === "" || rt.oauth_token === "") {
         res.status(400).json("Cannot request token from TM oAuth");
     }
-    console.log(rt.oauth_token_secret);
+
     sess["tokenSecret"] = rt.oauth_token_secret;
     res.redirect(tmAuth.GetAuthorizeUri(rt));
     }).catch(e => { throw e; });
@@ -36,7 +39,16 @@ router.route("/AccessToken").get(function(req: express.Request, res: express.Res
    }
 
    if (!!(authResponse.oauth_token) && !!(authResponse.oauth_verifier)) {
-       tmAuth.AccessToken(authResponse, tokenSecret);
+       tmAuth.AccessToken(authResponse, tokenSecret).then(tokens => {
+           let tokenBearerSignature: TMTokenBearerSingature = {
+               oauth_token: tokens.oauth_token,
+               oauth_token_secret: tokens.oauth_token_secret
+           };
+
+           let secretKey = new ConfigManager.Configuration().get().SecretKey;
+           let signature = jwt.sign(tokenBearerSignature, "text secret value", { algorithm: "HS256" } );           
+           res.status(200).json(signature);
+       });
    } else {
      res.status(400).json("Failed to authorize from TM oAuth");
    }

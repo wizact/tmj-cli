@@ -68,13 +68,23 @@ export class TMAuth {
 
     // Step 3
 
-    getAccessTokenHeader(oAuthToken: string, oAuthVerifier: string, oAuthTokenSecret: string) {
+    private getAccessTokenHeader(oAuthToken: string, oAuthVerifier: string, oAuthTokenSecret: string) {
         return `OAuth oauth_verifier=${oAuthVerifier}, oauth_consumer_key=${TMAuth.configData.ConsumerKey}, oauth_token=${oAuthToken}, oauth_version=${this.authData.authVersion}, oauth_timestamp=${this.getEpoch()}, oauth_nonce=${this.generateNounce()}, oauth_signature_method=${SignatureMethodType}, oauth_signature=${TMAuth.configData.ConsumerSecret}%26${oAuthTokenSecret}`;
     }
 
     AccessToken(tmAuthAuthorizeResponse: TMAuthAuthorizeResponse, oAuthTokenSecret: string) {
         let accessTokenUri = `${TMAuth.configData.OAuthAccessTokenUri}`;
         let header = this.getAccessTokenHeader(tmAuthAuthorizeResponse.oauth_token, tmAuthAuthorizeResponse.oauth_verifier, oAuthTokenSecret);
-        console.log(header);
+        return TMAuth.httpClient.get<string>(accessTokenUri, header).then(rt => {         
+            let response: TMAuthRequestTokenResponse = {};
+            let qsParts = qs.parse(rt);
+            response.oauth_token = qsParts["oauth_token"];
+            response.oauth_token_secret = qsParts["oauth_token_secret"];
+            if (qsParts.oauth_token === undefined || 
+                qsParts.oauth_token_secret === undefined) {
+                throw new Error(rt);
+            }
+            return response;
+        });
     }
 }

@@ -4,6 +4,7 @@ import * as fs          from "fs";
 import * as http        from "http";
 import * as https       from "https";
 import * as session     from "express-session";
+import * as expressjwt  from "express-jwt";
 
 // routes
 import * as authRoute   from "./routes/auth";
@@ -14,15 +15,24 @@ import { ConfigManager } from "./utility/ConfigManager";
 // Loading config values
 let config = new ConfigManager.Configuration();
 config.setEnvrionment(ConfigManager.Environment.Sandbox);
+let secretKey = new ConfigManager.Configuration().get().SecretKey;
+
 
 let app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ resave: false, saveUninitialized: false, secret: "text secret value"}));
+app.use(session({ resave: false, saveUninitialized: false, secret: secretKey}));
+app.use(expressjwt( { secret: secretKey }).unless( { path: ["/auth"] } ));
 
 app.use("/auth", authRoute.router);
 app.use("/status", statusRoute.router);
+
+app.use(function (err: Error, req, res, next) {
+  if (err.name === "UnauthorizedError") {
+    res.status(401).json("No authorization token was found");
+  }
+});
 
 const options: https.ServerOptions = {
   key: fs.readFileSync("./src/cert/key.pem"),

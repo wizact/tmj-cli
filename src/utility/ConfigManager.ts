@@ -11,6 +11,7 @@ export namespace ConfigManager {
         CallBackUrl?: string;
         ConsumerKey: string;
         ConsumerSecret: string;
+        SecretKey: string;
     }
     
     export enum Environment {

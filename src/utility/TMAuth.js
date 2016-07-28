@@ -50,7 +50,17 @@ var TMAuth = (function () {
     TMAuth.prototype.AccessToken = function (tmAuthAuthorizeResponse, oAuthTokenSecret) {
         var accessTokenUri = "" + TMAuth.configData.OAuthAccessTokenUri;
         var header = this.getAccessTokenHeader(tmAuthAuthorizeResponse.oauth_token, tmAuthAuthorizeResponse.oauth_verifier, oAuthTokenSecret);
-        console.log(header);
+        return TMAuth.httpClient.get(accessTokenUri, header).then(function (rt) {
+            var response = {};
+            var qsParts = qs.parse(rt);
+            response.oauth_token = qsParts["oauth_token"];
+            response.oauth_token_secret = qsParts["oauth_token_secret"];
+            if (qsParts.oauth_token === undefined ||
+                qsParts.oauth_token_secret === undefined) {
+                throw new Error(rt);
+            }
+            return response;
+        });
     };
     return TMAuth;
 }());

@@ -7,6 +7,6 @@ router.route("/:node?").get(function(req: express.Request, res: express.Response
     const date = new Date();
 
     const message = { "status": `${date} ${nodeValue}` };
-
+    console.log(req["user"]);
     res.json(message);
 });

@@ -20,3 +20,8 @@ export interface TMAuthAuthorizeResponse {
     oauth_token?: string;
     oauth_verifier?: string;
 }
+
+export interface TMTokenBearerSingature {
+    oauth_token?: string;
+    oauth_token_secret?: string;
+}
