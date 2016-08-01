@@ -30,12 +30,12 @@ var TMAuth = (function () {
         var header = this.getRequestTokenHeader();
         return TMAuth.httpClient.get(requestTokenUri, header).then(function (rt) {
             var response = {};
-            var qsParts = qs.parse(rt);
+            var qsParts = qs.parse(rt.Response);
             response.oauth_token = qsParts["oauth_token"];
             response.oauth_token_secret = qsParts["oauth_token_secret"];
             if (qsParts.oauth_token === undefined ||
                 qsParts.oauth_token_secret === undefined) {
-                throw new Error(rt);
+                throw new Error(rt.Response);
             }
             return response;
         });
@@ -52,15 +52,18 @@ var TMAuth = (function () {
         var header = this.getAccessTokenHeader(tmAuthAuthorizeResponse.oauth_token, tmAuthAuthorizeResponse.oauth_verifier, oAuthTokenSecret);
         return TMAuth.httpClient.get(accessTokenUri, header).then(function (rt) {
             var response = {};
-            var qsParts = qs.parse(rt);
+            var qsParts = qs.parse(rt.Response);
             response.oauth_token = qsParts["oauth_token"];
             response.oauth_token_secret = qsParts["oauth_token_secret"];
             if (qsParts.oauth_token === undefined ||
                 qsParts.oauth_token_secret === undefined) {
-                throw new Error(rt);
+                throw new Error(rt.Response);
             }
             return response;
         });
+    };
+    TMAuth.prototype.GetUserAuthHeader = function (user) {
+        return "OAuth oauth_consumer_key=" + TMAuth.configData.ConsumerKey + ", oauth_token=" + user.oauth_token + ", oauth_version=" + this.authData.authVersion + ", oauth_timestamp=" + this.getEpoch() + ", oauth_nonce=" + this.generateNounce() + ", oauth_signature_method=" + TMAuthData_1.SignatureMethodType + ", oauth_signature=" + TMAuth.configData.ConsumerSecret + "%26" + user.oauth_token_secret;
     };
     return TMAuth;
 }());

@@ -4,6 +4,7 @@ import { RetrieveJobCategory } from "../schema/RetrieveJobCategory";
 import { RetrieveCategoryDetail } from "../schema/RetrieveCategoryDetail";
 import HttpClient from "../utility/HttpClient";
 import { ConfigManager } from "../utility/ConfigManager";
+import { CanonicalResponse } from "../schema/CanonicalResponse";
 
 export namespace CategoryProxy {
     export class CategoryClient {
@@ -16,19 +17,19 @@ export namespace CategoryProxy {
             CategoryClient.configData = CategoryClient.configManager.get(); 
         }
 
-        retrieveGeneralCategory(categoryNumber: Number): Promise<RetrieveCategory.Response> {
+        retrieveGeneralCategory(categoryNumber: Number): Promise<CanonicalResponse<RetrieveCategory.Response>> {
             let servicePath: string = "Categories";
             let apiUri: string = CategoryClient.configData.ApiUri; 
             return CategoryClient.httpClient.get<RetrieveCategory.Response>(`${apiUri}/v1/${servicePath}/${categoryNumber}.json`);
         }
 
-        retrieveJobCategory(): Promise<RetrieveJobCategory.JobCategory[]> {
+        retrieveJobCategory(): Promise<CanonicalResponse<RetrieveJobCategory.JobCategory[]>> {
             let servicePath: string = "Categories";
             let apiUri: string = CategoryClient.configData.ApiUri; 
             return CategoryClient.httpClient.get<RetrieveJobCategory.JobCategory[]>(`${apiUri}/v1/${servicePath}/Jobs.json`);
         }
 
-        retrieveCategoryDetail(categoryNumber: Number): Promise<RetrieveCategoryDetail.Response> {
+        retrieveCategoryDetail(categoryNumber: Number): Promise<CanonicalResponse<RetrieveCategoryDetail.Response>> {
             let servicePath: string = "Categories";
             let apiUri: string = CategoryClient.configData.ApiUri; 
             return CategoryClient.httpClient.get<RetrieveCategoryDetail.Response>(`${apiUri}/v1/${servicePath}/${categoryNumber}/Details.json`);

@@ -3,6 +3,7 @@ import * as Promise from "bluebird";
 import { RequestAsync } from "./IRequestAsync";
 import * as qs from "querystring";
 import { IncomingMessage } from "http";
+import { CanonicalResponse } from "../schema/CanonicalResponse";
 
 const requestAsync: RequestAsync.IRequestAsync = <RequestAsync.IRequestAsync>Promise.promisifyAll(request);
 
@@ -14,7 +15,7 @@ export default class HttpClient {
         
     }
 
-    get<T>(uri: string, header?: string): Promise<T> {
+    get<T>(uri: string, header?: string): Promise<CanonicalResponse<T>> {
         
         
         let getOptions: request.CoreOptions = { };
@@ -23,7 +24,10 @@ export default class HttpClient {
         }
         return requestAsync.getAsync(uri, getOptions)
             .then((result: any) => {
-                return this.map<T>(result);    
+                let cr = new CanonicalResponse<T>();
+                cr.StatusCode = result.statusCode;
+                cr.Response = this.map<T>(result);
+                return cr;
             })
             .catch((err) => {
                 throw new Error(err);
@@ -54,5 +58,5 @@ export default class HttpClient {
 
     private transform<T>(responseBody: string) {
         return (<T>JSON.parse(responseBody));
-    }    
+    }  
 }

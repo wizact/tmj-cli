@@ -7,8 +7,9 @@ import * as session     from "express-session";
 import * as expressjwt  from "express-jwt";
 
 // routes
-import * as authRoute   from "./routes/auth";
-import * as statusRoute from "./routes/status"; 
+import * as authRoute       from "./routes/auth";
+import * as statusRoute     from "./routes/status"; 
+import * as watchlistRouter from "./routes/watchlist";
 
 import { ConfigManager } from "./utility/ConfigManager";
 
@@ -27,6 +28,7 @@ app.use(expressjwt( { secret: secretKey }).unless( { path: ["/auth"] } ));
 
 app.use("/auth", authRoute.router);
 app.use("/status", statusRoute.router);
+app.use("/watchlist", watchlistRouter.router);
 
 app.use(function (err: Error, req, res, next) {
   if (err.name === "UnauthorizedError") {

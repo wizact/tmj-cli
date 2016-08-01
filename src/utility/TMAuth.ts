@@ -7,9 +7,11 @@ import { TMAuthData,
          Scope, 
          AuthVersion,
          TMAuthRequestTokenResponse,
-         TMAuthAuthorizeResponse
+         TMAuthAuthorizeResponse,
+         TMTokenBearerSingature
        } from "./TMAuthData";
 import { ConfigManager } from "../utility/ConfigManager";
+import { CanonicalResponse } from "../schema/CanonicalResponse";
 
 export class TMAuth {
     private static configData: ConfigManager.IConfigData;
@@ -48,12 +50,12 @@ export class TMAuth {
         let header = this.getRequestTokenHeader();
         return TMAuth.httpClient.get<string>(requestTokenUri, header).then(rt => { 
             let response: TMAuthRequestTokenResponse = {};
-            let qsParts = qs.parse(rt);
+            let qsParts = qs.parse(rt.Response);
             response.oauth_token = qsParts["oauth_token"];
             response.oauth_token_secret = qsParts["oauth_token_secret"];
             if (qsParts.oauth_token === undefined || 
                 qsParts.oauth_token_secret === undefined) {
-                throw new Error(rt);
+                throw new Error(rt.Response);
             }
             return response;
         });
@@ -77,14 +79,18 @@ export class TMAuth {
         let header = this.getAccessTokenHeader(tmAuthAuthorizeResponse.oauth_token, tmAuthAuthorizeResponse.oauth_verifier, oAuthTokenSecret);
         return TMAuth.httpClient.get<string>(accessTokenUri, header).then(rt => {         
             let response: TMAuthRequestTokenResponse = {};
-            let qsParts = qs.parse(rt);
+            let qsParts = qs.parse(rt.Response);
             response.oauth_token = qsParts["oauth_token"];
             response.oauth_token_secret = qsParts["oauth_token_secret"];
             if (qsParts.oauth_token === undefined || 
                 qsParts.oauth_token_secret === undefined) {
-                throw new Error(rt);
+                throw new Error(rt.Response);
             }
             return response;
         });
+    }
+
+    GetUserAuthHeader(user: TMTokenBearerSingature): string {
+        return `OAuth oauth_consumer_key=${TMAuth.configData.ConsumerKey}, oauth_token=${user.oauth_token}, oauth_version=${this.authData.authVersion}, oauth_timestamp=${this.getEpoch()}, oauth_nonce=${this.generateNounce()}, oauth_signature_method=${SignatureMethodType}, oauth_signature=${TMAuth.configData.ConsumerSecret}%26${user.oauth_token_secret}`;
     }
 }

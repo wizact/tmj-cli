@@ -7,6 +7,7 @@ var session = require("express-session");
 var expressjwt = require("express-jwt");
 var authRoute = require("./routes/auth");
 var statusRoute = require("./routes/status");
+var watchlistRouter = require("./routes/watchlist");
 var ConfigManager_1 = require("./utility/ConfigManager");
 var config = new ConfigManager_1.ConfigManager.Configuration();
 config.setEnvrionment(ConfigManager_1.ConfigManager.Environment.Sandbox);
@@ -18,6 +19,7 @@ app.use(session({ resave: false, saveUninitialized: false, secret: secretKey }))
 app.use(expressjwt({ secret: secretKey }).unless({ path: ["/auth"] }));
 app.use("/auth", authRoute.router);
 app.use("/status", statusRoute.router);
+app.use("/watchlist", watchlistRouter.router);
 app.use(function (err, req, res, next) {
     if (err.name === "UnauthorizedError") {
         res.status(401).json("No authorization token was found");

@@ -1,6 +1,7 @@
 "use strict";
 var request = require("request");
 var Promise = require("bluebird");
+var CanonicalResponse_1 = require("../schema/CanonicalResponse");
 var requestAsync = Promise.promisifyAll(request);
 var HttpClient = (function () {
     function HttpClient() {
@@ -13,7 +14,10 @@ var HttpClient = (function () {
         }
         return requestAsync.getAsync(uri, getOptions)
             .then(function (result) {
-            return _this.map(result);
+            var cr = new CanonicalResponse_1.CanonicalResponse();
+            cr.StatusCode = result.statusCode;
+            cr.Response = _this.map(result);
+            return cr;
         })
             .catch(function (err) {
             throw new Error(err);

@@ -2,6 +2,7 @@ import * as Promise from "bluebird";
 import { CreateListing } from "../schema/CreateListing";
 import HttpClient from "../utility/HttpClient";
 import { ConfigManager } from "../utility/ConfigManager";
+import { CanonicalResponse } from "../schema/CanonicalResponse";
 
 export namespace ListingProxy {
     export class ListingClient {
