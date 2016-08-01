@@ -1,7 +1,11 @@
 import * as express from "express";
-import { WatchlistProxy } from "../proxy/WatchlistProxy";
-import { RetrieveWatchlist } from "../schema/RetrieveWatchlist";
 import { TMTokenBearerSingature } from "../utility/TMAuthData";
+
+// Clients
+import  { WatchlistProxy } from "../ProxyModule";
+
+// Schemas
+import  { RetrieveWatchlist } from "../SchemaModule";
 
 export let router = express.Router();
 
