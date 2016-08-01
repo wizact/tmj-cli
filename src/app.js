@@ -6,6 +6,7 @@ var https = require("https");
 var session = require("express-session");
 var expressjwt = require("express-jwt");
 var authRoute = require("./routes/auth");
+var catRoute = require("./routes/category");
 var statusRoute = require("./routes/status");
 var watchlistRouter = require("./routes/watchlist");
 var ConfigManager_1 = require("./utility/ConfigManager");
@@ -16,8 +17,9 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({ resave: false, saveUninitialized: false, secret: secretKey }));
-app.use(expressjwt({ secret: secretKey }).unless({ path: ["/auth"] }));
+app.use(expressjwt({ secret: secretKey }).unless({ path: ["/auth", /\/category/i] }));
 app.use("/auth", authRoute.router);
+app.use("/category", catRoute.router);
 app.use("/status", statusRoute.router);
 app.use("/watchlist", watchlistRouter.router);
 app.use(function (err, req, res, next) {

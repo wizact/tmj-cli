@@ -8,6 +8,7 @@ import * as expressjwt  from "express-jwt";
 
 // routes
 import * as authRoute       from "./routes/auth";
+import * as catRoute        from "./routes/category";
 import * as statusRoute     from "./routes/status"; 
 import * as watchlistRouter from "./routes/watchlist";
 
@@ -24,9 +25,10 @@ let app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({ resave: false, saveUninitialized: false, secret: secretKey}));
-app.use(expressjwt( { secret: secretKey }).unless( { path: ["/auth"] } ));
+app.use(expressjwt( { secret: secretKey }).unless( { path: ["/auth", /\/category/i] } ));
 
 app.use("/auth", authRoute.router);
+app.use("/category", catRoute.router);
 app.use("/status", statusRoute.router);
 app.use("/watchlist", watchlistRouter.router);
 
@@ -62,41 +64,5 @@ import * as url from "url";
 let categoryClient = new CategoryProxy.CategoryClient();
 
 */
-
-
-// Retrieve General Category
-// categoryClient.retrieveGeneralCategory(5000).then((response) => { 
-//     console.log(response.Subcategories[0].Name);
-//     console.log(response.Subcategories[0].Path);
-//     console.log(response.Subcategories[0].HasClassifieds);
-//     console.log(response.Subcategories[0].Number); 
-// });
-
-// Retrieve Job Category
-// categoryClient.retrieveJobCategory().then((response) => { 
-//     console.log(response[0].Code);
-//     console.log(response[0].Name);
-//     console.log(response[0].SubCategories);
-// });
-
-// Retrieve Job Category Detail
-// categoryClient.retrieveCategoryDetail(5007).then((response) => {
-//     console.log(response.CanRelist);
-// });
-
-// let listingClient = new ListingProxy.ListingClient();
-// let createListingRequest: CreateListing.Request = {
-//     Category: "5007",
-//     Title: "Test Job",
-//     Description: [ "Test Description of Test Job" ],
-//     IsClassified: true,
-//     IsFeatured: false,
-//     Attributes: [],
-//     ExternalReferenceId: "ref",
-//     ReturnListingDetails: true,
-//     EmbeddedContent: { YouTubeVideoKey: "YouTube Key" },
-//     IsBranded: false,
-//     ShortDescription: "Short Description"
-// };
 
 // listingClient.createListing(createListingRequest).then((createListingResponse: CreateListing.Response) => console.log(createListingResponse));
