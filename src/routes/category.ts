@@ -12,31 +12,28 @@ import  {
 
 export let router = express.Router();
 
-router.route("/:categoryId?").get(function(req: express.Request, res: express.Response, next: Function) {
+// TODO: Sanitize 404. Should replace the response.
+router.route("/").get(function(req: express.Request, res: express.Response, next: Function) {
+    let catClient = new CategoryProxy.CategoryClient();
+    catClient.retrieveJobCategory().then(result => {
+        res.status(result.StatusCode).json(result.Response);
+    });
+});
+
+/* 
+ * Returns 400 if the category is not valid with the following:
+ * {
+ * "Request": "https://api.tmsandbox.co.nz/v1/Categories/5003.json",
+ * "ErrorDescription": "Category 5003 was not found"
+ * } 
+ */
+router.route("/:categoryId").get(function(req: express.Request, res: express.Response, next: Function) {
     const categoryId = (req.params && req.params.categoryId) ? req.params.categoryId : 5000;
     let catClient = new CategoryProxy.CategoryClient();
     catClient.retrieveGeneralCategory(categoryId).then(result => {
         res.status(result.StatusCode).json(result.Response);
     });
 });
-
-// import * as url from "url";
-
-// Retrieve General Category
-// categoryClient.retrieveGeneralCategory(5000).then((response) => { 
-//     console.log(response.Subcategories[0].Name);
-//     console.log(response.Subcategories[0].Path);
-//     console.log(response.Subcategories[0].HasClassifieds);
-//     console.log(response.Subcategories[0].Number); 
-// });
-
-// Retrieve Job Category
-// categoryClient.retrieveJobCategory().then((response) => { 
-//     console.log(response[0].Code);
-//     console.log(response[0].Name);
-//     console.log(response[0].SubCategories);
-// });
-
 // Retrieve Job Category Detail
 // categoryClient.retrieveCategoryDetail(5007).then((response) => {
 //     console.log(response.CanRelist);
