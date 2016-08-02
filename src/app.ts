@@ -9,6 +9,7 @@ import * as expressjwt  from "express-jwt";
 // routes
 import * as authRoute       from "./routes/auth";
 import * as catRoute        from "./routes/category";
+import * as memberRouter    from "./routes/member";
 import * as statusRoute     from "./routes/status"; 
 import * as watchlistRouter from "./routes/watchlist";
 
@@ -29,6 +30,7 @@ app.use(expressjwt( { secret: secretKey }).unless( { path: ["/auth", /\/category
 
 app.use("/auth", authRoute.router);
 app.use("/category", catRoute.router);
+app.use("/member", memberRouter.router);
 app.use("/status", statusRoute.router);
 app.use("/watchlist", watchlistRouter.router);
 
