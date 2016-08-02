@@ -2,6 +2,7 @@ import * as Promise                 from "bluebird";
 import HttpClient                   from "../utility/HttpClient";
 import { ConfigManager }            from "../utility/ConfigManager";
 import { RetrieveMember }           from "../schema/RetrieveMember";
+import { RetrieveMemberSummary }    from "../schema/RetrieveMemberSummary";
 import { CanonicalResponse }        from "../schema/CanonicalResponse";
 import { TMTokenBearerSingature }   from "../utility/TMAuthData";
 import { TMAuth }                   from "../utility/TMAuth";
@@ -23,6 +24,12 @@ export namespace MemberProxy {
             let servicePath: string = "Member";
             let apiUri: string = MemberClient.configData.ApiUri; 
             return MemberClient.httpClient.get<RetrieveMember.RetrieveMember>(`${apiUri}/v1/${servicePath}/${memberId}/Profile.json`, this.userAuthHeader);
+        }
+
+        retrieveMemberSummary(): Promise<CanonicalResponse<RetrieveMemberSummary.RetrieveMemberSummary>> {
+            let servicePath: string = "MyTradeMe/Summary";
+            let apiUri: string = MemberClient.configData.ApiUri; 
+            return MemberClient.httpClient.get<RetrieveMemberSummary.RetrieveMemberSummary>(`${apiUri}/v1/${servicePath}.json?return_member_profile=true`, this.userAuthHeader);
         }
     }
 }

@@ -16,6 +16,11 @@ var MemberProxy;
             var apiUri = MemberClient.configData.ApiUri;
             return MemberClient.httpClient.get(apiUri + "/v1/" + servicePath + "/" + memberId + "/Profile.json", this.userAuthHeader);
         };
+        MemberClient.prototype.retrieveMemberSummary = function () {
+            var servicePath = "MyTradeMe/Summary";
+            var apiUri = MemberClient.configData.ApiUri;
+            return MemberClient.httpClient.get(apiUri + "/v1/" + servicePath + ".json?return_member_profile=true", this.userAuthHeader);
+        };
         return MemberClient;
     }());
     MemberProxy.MemberClient = MemberClient;
