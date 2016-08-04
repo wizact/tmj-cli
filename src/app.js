@@ -18,7 +18,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({ resave: false, saveUninitialized: false, secret: secretKey }));
-app.use(expressjwt({ secret: secretKey }).unless({ path: ["/auth", /\/category/i] }));
+app.use(expressjwt({ secret: secretKey }).unless({ path: [/\/auth/i, /\/category/i] }));
 app.use("/auth", authRoute.router);
 app.use("/category", catRoute.router);
 app.use("/member", memberRouter.router);

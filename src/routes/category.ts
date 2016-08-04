@@ -17,6 +17,8 @@ router.route("/").get(function(req: express.Request, res: express.Response, next
     let catClient = new CategoryProxy.CategoryClient();
     catClient.retrieveJobCategory().then(result => {
         res.status(result.StatusCode).json(result.Response);
+    }).catch(err => {
+        res.status(500).json(err.message);
     });
 });
 
@@ -32,6 +34,8 @@ router.route("/:categoryId").get(function(req: express.Request, res: express.Res
     let catClient = new CategoryProxy.CategoryClient();
     catClient.retrieveGeneralCategory(categoryId).then(result => {
         res.status(result.StatusCode).json(result.Response);
+    }).catch(err => {
+        res.status(400).json(err.message);
     });
 });
 
@@ -47,5 +51,7 @@ router.route("/:categoryId/detail").get(function(req: express.Request, res: expr
     let catClient = new CategoryProxy.CategoryClient();
     catClient.retrieveCategoryDetail(categoryId).then(result => {
         res.status(result.StatusCode).json(result.Response);
+    }).catch(err => {
+        res.status(400).json(err.message);
     });
 });

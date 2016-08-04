@@ -1,0 +1,270 @@
+{
+	"variables": [],
+	"info": {
+		"name": "tmj-client",
+		"_postman_id": "8db8d2d5-1a18-a658-2b82-6c9644cb5a07",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"description": "OAuth implementation for Trade Me API. This is a wrapper around OAuth 1.0 and change it to JWT token after requesting Token.\n\nNote: This endpoint can be called anonymously.",
+			"item": [
+				{
+					"name": "Request Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\n\ntests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");\ntests[\"Content-Type is html\"] = postman.getResponseHeader(\"Content-Type\") === \"text/html; charset=utf-8\";"
+							}
+						}
+					],
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/auth/RequestToken",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Requests token and redirects the user to the confirmation page. Upon consent, TM will redirect the user to the callback endpoint in AccessToken operation."
+					},
+					"response": []
+				},
+				{
+					"name": "Access Token",
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/auth/AccessToken?oauth_token={{oauth_token}}&oauth_verifier={{oauth_verifier}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "The redirect call back from the TMJ consent page. This endpoint request the AccessToken and returns the JWT Bearer based on the response with HTTP 200 status code.\n\nHTTP 400 can be returned if the session has been expired or the request token is invalid or revoked by the user."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"description": "Contains catalogue services. \n\nNote: This endpoint can be called anonymously.",
+			"item": [
+				{
+					"name": "Job Category Service",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Should have first element as Accounting\"] = jsonData[0].Name === \"Accounting\";"
+							}
+						}
+					],
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/category/",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Returns all Jobs category hierarchy"
+					},
+					"response": []
+				},
+				{
+					"name": "General Category Service",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Should have first element as Accounting\"] = jsonData.Name === \"Accounting\";"
+							}
+						}
+					],
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/category/5001",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Returns a Jobs category by the category Id"
+					},
+					"response": []
+				},
+				{
+					"name": "Category Detail Service",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Should have first element as Accounting\"] = jsonData.Name === \"Accounts administrators\";"
+							}
+						}
+					],
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/category/5007/detail",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Returns a category detail by the category Id"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Member",
+			"description": "Member info services",
+			"item": [
+				{
+					"name": "Returns member profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;"
+							}
+						}
+					],
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/member/4004251",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Returns member profile information using their member Id"
+					},
+					"response": []
+				},
+				{
+					"name": "Member Summary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;"
+							}
+						}
+					],
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/member/summary",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Returns logged-in member summary"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Status",
+			"description": "A ping service for health monitoring of the node",
+			"item": [
+				{
+					"name": "Health check ping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"should have status element\"] = jsonData.status !== undefined;"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "postman.setEnvironmentVariable(\"param\", \"paramvalue\");"
+							}
+						}
+					],
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/status/{{param}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Status method with time stamp"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Watchlist",
+			"description": "Watchlist CRUD operations",
+			"item": [
+				{
+					"name": "Retrieve Watchlist Items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Should returns the first page\"] = jsonData.Page === 1;"
+							}
+						}
+					],
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/watchlist/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Retrieves all items in the logged-in member watchlist"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

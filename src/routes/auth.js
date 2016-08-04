@@ -37,6 +37,8 @@ exports.router.route("/AccessToken").get(function (req, res, next) {
             var secretKey = new ConfigManager_1.ConfigManager.Configuration().get().SecretKey;
             var signature = jwt.sign(tokenBearerSignature, "text secret value", { algorithm: "HS256" });
             res.status(200).json(signature);
+        }).catch(function (err) {
+            res.status(400).json(err.message);
         });
     }
     else {

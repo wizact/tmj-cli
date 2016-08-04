@@ -13,5 +13,7 @@ router.route("/").get(function(req: express.Request, res: express.Response, next
     let wlClient = new WatchlistProxy.WatchlistClient(<TMTokenBearerSingature>req["user"]);
     wlClient.retrieveWatchlist().then(result => {
         res.status(result.StatusCode).json(result.Response);
+    }).catch(err => {
+        res.status(400).json(err.message);
     });
 });

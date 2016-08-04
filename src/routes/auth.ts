@@ -48,6 +48,8 @@ router.route("/AccessToken").get(function(req: express.Request, res: express.Res
            let secretKey = new ConfigManager.Configuration().get().SecretKey;
            let signature = jwt.sign(tokenBearerSignature, "text secret value", { algorithm: "HS256" } );           
            res.status(200).json(signature);
+       }).catch(err => {
+           res.status(400).json(err.message);
        });
    } else {
      res.status(400).json("Failed to authorize from TM oAuth");
