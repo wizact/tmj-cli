@@ -34,7 +34,8 @@ export default class HttpClient {
     post<T, K>(uri: string, requestBody: T, header?: string): Promise<CanonicalResponse<K>> {
         let postOptions: request.CoreOptions = this.createRequestOptions();
         postOptions = this.setAuthHeader(postOptions, header);
-        postOptions = this.setBody(postOptions);
+        postOptions = this.setBody(postOptions, JSON.stringify(requestBody));
+        postOptions = this.setContentTypeHeader(postOptions);
         return requestAsync.postAsync(uri, postOptions)
             .then((result: any) => {
                 let cr = new CanonicalResponse<K>();
@@ -62,9 +63,15 @@ export default class HttpClient {
 
     private setBody(requestOptions: request.CoreOptions, body?: string): request.CoreOptions {
         if (!!body) {
-            requestOptions.body = JSON.stringify(body);
+            requestOptions.body = body;
         }
 
+        return requestOptions;
+    } 
+
+    private setContentTypeHeader(requestOptions: request.CoreOptions): request.CoreOptions {
+        requestOptions.headers["content-type"] = "application/json";
+        
         return requestOptions;
     } 
 

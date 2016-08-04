@@ -17,7 +17,7 @@ router.route("/RequestToken").get(function(req: express.Request, res: express.Re
     }
 
     sess["tokenSecret"] = rt.oauth_token_secret;
-    res.redirect(tmAuth.GetAuthorizeUri(rt));
+    res.status(200).end(tmAuth.GetAuthorizeUri(rt));
     }).catch(e => { throw e; });
 });
 

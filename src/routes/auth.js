@@ -12,7 +12,7 @@ exports.router.route("/RequestToken").get(function (req, res, next) {
             res.status(400).json("Cannot request token from TM oAuth");
         }
         sess["tokenSecret"] = rt.oauth_token_secret;
-        res.redirect(tmAuth.GetAuthorizeUri(rt));
+        res.status(200).end(tmAuth.GetAuthorizeUri(rt));
     }).catch(function (e) { throw e; });
 });
 exports.router.route("/AccessToken").get(function (req, res, next) {

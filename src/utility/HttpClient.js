@@ -25,7 +25,8 @@ var HttpClient = (function () {
         var _this = this;
         var postOptions = this.createRequestOptions();
         postOptions = this.setAuthHeader(postOptions, header);
-        postOptions = this.setBody(postOptions);
+        postOptions = this.setBody(postOptions, JSON.stringify(requestBody));
+        postOptions = this.setContentTypeHeader(postOptions);
         return requestAsync.postAsync(uri, postOptions)
             .then(function (result) {
             var cr = new CanonicalResponse_1.CanonicalResponse();
@@ -49,8 +50,12 @@ var HttpClient = (function () {
     };
     HttpClient.prototype.setBody = function (requestOptions, body) {
         if (!!body) {
-            requestOptions.body = JSON.stringify(body);
+            requestOptions.body = body;
         }
+        return requestOptions;
+    };
+    HttpClient.prototype.setContentTypeHeader = function (requestOptions) {
+        requestOptions.headers["content-type"] = "application/json";
         return requestOptions;
     };
     HttpClient.prototype.map = function (responseBody) {

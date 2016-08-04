@@ -9,9 +9,9 @@ import { TMAuth }                   from "../utility/TMAuth";
 
 export namespace MemberProxy {
     export class MemberClient {
-        private static httpClient: HttpClient;
         private static configManager: ConfigManager.IConfiguration;
         private static configData: ConfigManager.IConfigData;
+        private static httpClient: HttpClient;
         private userAuthHeader: string;
         constructor(user: TMTokenBearerSingature, configManager?: ConfigManager.IConfiguration) {
             MemberClient.httpClient = new HttpClient();

@@ -46,7 +46,7 @@ export class TMAuth {
     }
 
     RequestToken(): Promise<TMAuthRequestTokenResponse> {
-        let requestTokenUri = `${TMAuth.configData.OAuthRequestTokenUri}?${Scope}`;
+        let requestTokenUri = `${TMAuth.configData.OAuthRequestTokenUri}?scope=${Scope}`;
         let header = this.getRequestTokenHeader();
         return TMAuth.httpClient.get<string>(requestTokenUri, header).then(rt => { 
             let response: TMAuthRequestTokenResponse = {};

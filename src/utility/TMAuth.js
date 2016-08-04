@@ -26,7 +26,7 @@ var TMAuth = (function () {
         return "OAuth oauth_callback=" + this.authData.callbackUrl + ", oauth_consumer_key=" + this.authData.consumerKey + ", oauth_version=" + this.authData.authVersion + ", oauth_timestamp=" + this.getEpoch() + ", oauth_nonce=" + this.generateNounce() + ", oauth_signature_method=" + TMAuthData_1.SignatureMethodType + ", oauth_signature=" + TMAuth.configData.ConsumerSecret + "%26";
     };
     TMAuth.prototype.RequestToken = function () {
-        var requestTokenUri = TMAuth.configData.OAuthRequestTokenUri + "?" + TMAuthData_1.Scope;
+        var requestTokenUri = TMAuth.configData.OAuthRequestTokenUri + "?scope=" + TMAuthData_1.Scope;
         var header = this.getRequestTokenHeader();
         return TMAuth.httpClient.get(requestTokenUri, header).then(function (rt) {
             var response = {};
