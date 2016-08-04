@@ -15,7 +15,7 @@ export namespace ListingProxy {
             ListingClient.configData = ListingClient.configManager.get(); 
         }
 
-        createListing(request: CreateListing.Request): Promise<CreateListing.Response> {
+        createListing(request: CreateListing.Request): Promise<CanonicalResponse<CreateListing.Response>> {
             let servicePath: string = "Selling";
             let apiUri: string = ListingClient.configData.ApiUri; 
             return ListingClient.httpClient.post<CreateListing.Request, CreateListing.Response>(`${apiUri}/v1/${servicePath}.json`, request);

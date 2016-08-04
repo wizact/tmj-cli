@@ -8,10 +8,8 @@ var HttpClient = (function () {
     }
     HttpClient.prototype.get = function (uri, header) {
         var _this = this;
-        var getOptions = {};
-        if (!!header) {
-            getOptions.headers = { "Authorization": header };
-        }
+        var getOptions = this.createRequestOptions();
+        getOptions = this.setAuthHeader(getOptions, header);
         return requestAsync.getAsync(uri, getOptions)
             .then(function (result) {
             var cr = new CanonicalResponse_1.CanonicalResponse();
@@ -23,17 +21,37 @@ var HttpClient = (function () {
             throw new Error(err);
         });
     };
-    HttpClient.prototype.post = function (uri, requestBody) {
+    HttpClient.prototype.post = function (uri, requestBody, header) {
         var _this = this;
-        var postOptions = {};
-        postOptions.body = JSON.stringify(requestBody);
+        var postOptions = this.createRequestOptions();
+        postOptions = this.setAuthHeader(postOptions, header);
+        postOptions = this.setBody(postOptions);
         return requestAsync.postAsync(uri, postOptions)
             .then(function (result) {
-            return _this.map(result);
+            var cr = new CanonicalResponse_1.CanonicalResponse();
+            cr.StatusCode = result.statusCode;
+            cr.Response = _this.map(result);
+            return cr;
         })
             .catch(function (err) {
             throw new Error(err);
         });
+    };
+    HttpClient.prototype.createRequestOptions = function () {
+        var requestOptions = {};
+        return requestOptions;
+    };
+    HttpClient.prototype.setAuthHeader = function (requestOptions, header) {
+        if (!!header) {
+            requestOptions.headers = { "Authorization": header };
+        }
+        return requestOptions;
+    };
+    HttpClient.prototype.setBody = function (requestOptions, body) {
+        if (!!body) {
+            requestOptions.body = JSON.stringify(body);
+        }
+        return requestOptions;
     };
     HttpClient.prototype.map = function (responseBody) {
         if ((responseBody !== undefined &&

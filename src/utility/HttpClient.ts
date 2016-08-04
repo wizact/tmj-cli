@@ -15,13 +15,10 @@ export default class HttpClient {
         
     }
 
-    get<T>(uri: string, header?: string): Promise<CanonicalResponse<T>> {
-        
-        
-        let getOptions: request.CoreOptions = { };
-        if (!!header) {
-            getOptions.headers = { "Authorization": header };
-        }
+    get<T>(uri: string, header?: string): Promise<CanonicalResponse<T>> {    
+        let getOptions: request.CoreOptions = this.createRequestOptions(); 
+        getOptions = this.setAuthHeader(getOptions, header);
+
         return requestAsync.getAsync(uri, getOptions)
             .then((result: any) => {
                 let cr = new CanonicalResponse<T>();
@@ -34,17 +31,42 @@ export default class HttpClient {
             });
     }
 
-    post<T, K>(uri: string, requestBody: T): Promise<K> {
-        let postOptions: request.CoreOptions = {};
-        postOptions.body = JSON.stringify(requestBody);
+    post<T, K>(uri: string, requestBody: T, header?: string): Promise<CanonicalResponse<K>> {
+        let postOptions: request.CoreOptions = this.createRequestOptions();
+        postOptions = this.setAuthHeader(postOptions, header);
+        postOptions = this.setBody(postOptions);
         return requestAsync.postAsync(uri, postOptions)
             .then((result: any) => {
-                return this.map<T>(result);
+                let cr = new CanonicalResponse<K>();
+                cr.StatusCode = result.statusCode;
+                cr.Response = this.map<K>(result);
+                return cr;
             })
             .catch((err) => {
                 throw new Error(err);
             });
     }
+
+    private createRequestOptions(): request.CoreOptions {
+        let requestOptions: request.CoreOptions = { };
+        return requestOptions;
+    }
+
+    private setAuthHeader(requestOptions: request.CoreOptions, header?: string): request.CoreOptions {
+        if (!!header) {
+            requestOptions.headers = { "Authorization": header };
+        }
+
+        return requestOptions;
+    } 
+
+    private setBody(requestOptions: request.CoreOptions, body?: string): request.CoreOptions {
+        if (!!body) {
+            requestOptions.body = JSON.stringify(body);
+        }
+
+        return requestOptions;
+    } 
 
     private map<T>(responseBody: any) {
         if ((<IncomingMessage>responseBody !== undefined && 
