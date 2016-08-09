@@ -1,14 +1,15 @@
-import * as bodyParser  from "body-parser";
-import * as express     from "express";
-import * as fs          from "fs";
-import * as http        from "http";
-import * as https       from "https";
-import * as session     from "express-session";
-import * as expressjwt  from "express-jwt";
+import * as bodyParser      from "body-parser";
+import * as express         from "express";
+import * as fs              from "fs";
+import * as http            from "http";
+import * as https           from "https";
+import * as session         from "express-session";
+import * as expressjwt      from "express-jwt";
 
 // routes
 import * as authRoute       from "./routes/auth";
 import * as catRoute        from "./routes/category";
+import * as feeRoute        from "./routes/fee";
 import * as listingRoute    from "./routes/listing";
 import * as memberRouter    from "./routes/member";
 import * as statusRoute     from "./routes/status"; 
@@ -31,6 +32,7 @@ app.use(expressjwt( { secret: secretKey }).unless( { path: [/\/auth/i, /\/catego
 
 app.use("/auth", authRoute.router);
 app.use("/category", catRoute.router);
+app.use("/fee", feeRoute.router);
 app.use("/listing", listingRoute.router);
 app.use("/member", memberRouter.router);
 app.use("/status", statusRoute.router);

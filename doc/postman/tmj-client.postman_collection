@@ -126,6 +126,37 @@
 			]
 		},
 		{
+			"name": "Fee",
+			"description": "Services to create, edit, withdraw, list similar, or relist a job listing",
+			"item": [
+				{
+					"name": "Fee to Create a Job Listing",
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/listing/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Category\": 5007,\n    \"Title\": \"This is the title\",\n    \"Description\": [ \"Description is here\" ],\n    \"Duration\": 30,\n    \"IsClassified\": true,\n    \"IsFeatured\": true,\n    \"Attributes\": [\n        { \"Name\": \"Company\", \"Value\": \"ACME\" }, \n        { \"Name\": \"District\", \"Value\": \"2\" },\n        { \"Name\": \"JobType\", \"Value\": \"FT\" },\n        { \"Name\": \"ContractDuration\", \"Value\": \"PER\" },\n        { \"Name\": \"PayAndBenefits\", \"Value\": \"PayAndBenefits\" },\n        { \"Name\": \"ApproximatePay\", \"Value\": \"20000\" },\n        { \"Name\": \"ApproximatePayRangeHigh\", \"Value\": \"20000\" },\n        { \"Name\": \"IsWorkPermitNeeded\", \"Value\": \"1\" },\n        { \"Name\": \"YourReference\", \"Value\": \"my ref\" },\n        { \"Name\": \"ContactName\", \"Value\": \"ContactName\" },\n        { \"Name\": \"EmailAddress\", \"Value\": \"test@example.com\" },\n        { \"Name\": \"ApplicationUrl\", \"Value\": \"http://example.com/apply\" },\n        { \"Name\": \"Phone1Prefix\", \"Value\": \"021\" },\n        { \"Name\": \"Phone1Number\", \"Value\": \"08385199\" },\n        { \"Name\": \"Phone2Prefix\", \"Value\": \"021\" },\n        { \"Name\": \"Phone2Number\", \"Value\": \"08385199\" },\n        { \"Name\": \"PreferredApplicationMode\", \"Value\": \"E\" },\n        { \"Name\": \"ApplicationInstructions\", \"Value\": \"Apply via email\" },\n        { \"Name\": \"GeneralManagement\", \"Value\": \"1\" },\n        { \"Name\": \"PayType\", \"Value\": \"SALARY\" },\n        { \"Name\": \"Branding\", \"Value\": \"1\" },\n        { \"Name\": \"BrandingBanner\", \"Value\": \"0\" },\n        { \"Name\": \"BrandingLogo\", \"Value\": \"0\" }\n        ],\n    \"ExternalReferenceId\": \"test_ref\",\n    \"ReturnListingDetails\": true,\n    \"IsBranded\": true,\n    \"ShortDescription\": \"Short Description\"\n}"
+						},
+						"description": "Operation to calculate the fee for creation of a Job listing and returns the breakdown of fees applicable to the listing."
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Listing",
 			"description": "Services to create, edit, withdraw, list similar, or relist a job listing",
 			"item": [

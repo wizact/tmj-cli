@@ -16,6 +16,11 @@ var ListingProxy;
             var apiUri = ListingClient.configData.ApiUri;
             return ListingClient.httpClient.post(apiUri + "/v1/" + servicePath + ".json", request, this.userAuthHeader);
         };
+        ListingClient.prototype.createListingFee = function (request) {
+            var servicePath = "Selling/Fees";
+            var apiUri = ListingClient.configData.ApiUri;
+            return ListingClient.httpClient.post(apiUri + "/v1/" + servicePath + ".json", request, this.userAuthHeader);
+        };
         return ListingClient;
     }());
     ListingProxy.ListingClient = ListingClient;

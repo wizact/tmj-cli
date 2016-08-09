@@ -1,8 +1,9 @@
 import * as Promise from "bluebird";
-import HttpClient from "../utility/HttpClient";
-import { CanonicalResponse } from "../schema/CanonicalResponse";
-import { ConfigManager } from "../utility/ConfigManager";
-import { CreateListing } from "../schema/CreateListing";
+import HttpClient                   from "../utility/HttpClient";
+import { CanonicalResponse }        from "../schema/CanonicalResponse";
+import { ConfigManager }            from "../utility/ConfigManager";
+import { CreateListing }            from "../schema/CreateListing";
+import { CreateListingFee }         from "../schema/CreateListingFee";
 import { TMTokenBearerSingature }   from "../utility/TMAuthData";
 import { TMAuth }                   from "../utility/TMAuth";
 
@@ -23,6 +24,12 @@ export namespace ListingProxy {
             let servicePath: string = "Selling";
             let apiUri: string = ListingClient.configData.ApiUri; 
             return ListingClient.httpClient.post<CreateListing.Request, CreateListing.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
+        }
+
+        createListingFee(request: CreateListing.Request): Promise<CanonicalResponse<CreateListingFee.Response>> {
+            let servicePath: string = "Selling/Fees";
+            let apiUri: string = ListingClient.configData.ApiUri; 
+            return ListingClient.httpClient.post<CreateListing.Request, CreateListingFee.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
         }
     }
 }
