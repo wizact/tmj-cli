@@ -48,25 +48,3 @@ const options: https.ServerOptions = {
 };
 
 let server = https.createServer(options, app).listen(process.env.PORT || 8080);
-
-/*
-// Clients
-import  { 
-            CategoryProxy,
-            ListingProxy 
-        } from "./ProxyModule";
-
-// Schemas
-import  { 
-            RetrieveCategory, 
-            RetrieveJobCategory, 
-            CreateListing 
-        } from "./SchemaModule";
-
-import * as url from "url";
-
-let categoryClient = new CategoryProxy.CategoryClient();
-
-*/
-
-// listingClient.createListing(createListingRequest).then((createListingResponse: CreateListing.Response) => console.log(createListingResponse));
