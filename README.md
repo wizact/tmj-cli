@@ -4,8 +4,8 @@ tmj-cli is a client written in TypeScript to expose some of the Job specific fun
 
 ## Usage
 
-### TypeScript
-* Create a tmj-cli.json file. We check up to five parent directory relative to `process.argv` to find it.
+### Setup
+* The configuration file is a `json` file supporting two envrionemts The configuration file name should be `tmj-cli.json`. We check up to five parent directory relative to `process.argv` to find it.
 ```javascript
 {
     "sandbox": { 
@@ -21,51 +21,24 @@ tmj-cli is a client written in TypeScript to expose some of the Job specific fun
 }
 ```
 
-* Import the following modules
-```javascript
-import { CategoryProxy } from "./ProxyModule";
-import { ConfigManager } from "./utility/ConfigManager";
+* Alternatively you can run the following command and complete the file manually.
+```bash
+npm run setup
 ```
-
-* Set the environment
-```javascript
-let config = new ConfigManager.Configuration();
-config.setEnvrionment(ConfigManager.Environment.Sandbox);
-```
-* Create proxies
-```javascript
-let categoryClient = new CategoryProxy.CategoryClient();
-// Retrieve General Category
-categoryClient.retrieveGeneralCategory(5000).then((response) => {
-	console.log(response);
-});
-
-// Retrieve Job Category
-categoryClient.retrieveJobCategory().then((response) => { 
-    console.log(response);
-});
-
-// Retrieve Job Category Detail
-categoryClient.retrieveCategoryDetail(5007).then((response) => {
-     console.log(response.CanRelist);
-});
-```
-
-### JavaScript
-Coming soon
 
 ## Build
+We are using `Grunt` for build tasks.
 ```bash
 # to lint and compile
 > grunt
-# to lint
+# to lint only
 > grunt lint-ts
-# to compile
+# to compile only
 > grunt compile-ts
-# to watch for changes
+# to watch for changes (For development you probably want this)
 > grunt watch
 ```
 
 ### Links:
 
- * [Official Documentation](http://http://developer.trademe.co.nz/) for Trade Me API
+ * [Official Documentation](http://developer.trademe.co.nz/) for Trade Me API
