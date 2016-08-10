@@ -18,4 +18,13 @@ exports.router.route("/").put(function (req, res, next) {
         res.status(400).json(err.message);
     });
 });
+exports.router.route("/").delete(function (req, res, next) {
+    var listingClient = new ProxyModule_1.ListingProxy.ListingClient(req["user"]);
+    req.body.Type = 2;
+    listingClient.withdrawListing(req.body).then(function (result) {
+        res.status(result.StatusCode).json(result.Response);
+    }).catch(function (err) {
+        res.status(400).json(err.message);
+    });
+});
 //# sourceMappingURL=listing.js.map

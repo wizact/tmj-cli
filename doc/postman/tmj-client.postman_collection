@@ -234,6 +234,31 @@
 						"description": "Operation to edit a Job listing and returns the breakdown of fees applicable to the listing."
 					},
 					"response": []
+				},
+				{
+					"name": "Withdraw a Job Listing",
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/listing/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ListingId\": 4765976,\n    \"Reason\":  \"Just testing the withdraw\"\n}"
+						},
+						"description": "Operation to withdraw a Job listing and returns the result of the operation."
+					},
+					"response": []
 				}
 			]
 		},

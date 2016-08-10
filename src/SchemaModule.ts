@@ -5,6 +5,7 @@ import { RetrieveJobCategory }      from "./schema/RetrieveJobCategory";
 import { RetrieveWatchlist }        from "./schema/RetrieveWatchlist";
 import { RetrieveMember }           from "./schema/RetrieveMember";
 import { RetrieveMemberSummary }    from "./schema/RetrieveMemberSummary";
+import { Withdraw }                 from "./schema/Withdraw";
 
 export  { 
             Listing,
@@ -13,5 +14,6 @@ export  {
             RetrieveJobCategory, 
             RetrieveWatchlist,  
             RetrieveMember,
-            RetrieveMemberSummary
+            RetrieveMemberSummary,
+            Withdraw
         };

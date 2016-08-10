@@ -2,8 +2,10 @@ import * as Promise from "bluebird";
 import HttpClient                   from "../utility/HttpClient";
 import { CanonicalResponse }        from "../schema/CanonicalResponse";
 import { ConfigManager }            from "../utility/ConfigManager";
-import { Listing }            from "../schema/Listing";
-import { ListingFee }         from "../schema/ListingFee";
+import {    Listing, 
+            ListingFee, 
+            Withdraw 
+       }                            from "../SchemaModule";
 import { TMTokenBearerSingature }   from "../utility/TMAuthData";
 import { TMAuth }                   from "../utility/TMAuth";
 
@@ -42,6 +44,12 @@ export namespace ListingProxy {
             let servicePath: string = "Selling/EditFees";
             let apiUri: string = ListingClient.configData.ApiUri; 
             return ListingClient.httpClient.post<Listing.Request, ListingFee.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
+        }
+
+        withdrawListing(request: Withdraw.Request): Promise<CanonicalResponse<Listing.Response>> {
+            let servicePath: string = "Selling/Withdraw";
+            let apiUri: string = ListingClient.configData.ApiUri; 
+            return ListingClient.httpClient.post<Withdraw.Request, Listing.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
         }
     }
 }

@@ -31,6 +31,11 @@ var ListingProxy;
             var apiUri = ListingClient.configData.ApiUri;
             return ListingClient.httpClient.post(apiUri + "/v1/" + servicePath + ".json", request, this.userAuthHeader);
         };
+        ListingClient.prototype.withdrawListing = function (request) {
+            var servicePath = "Selling/Withdraw";
+            var apiUri = ListingClient.configData.ApiUri;
+            return ListingClient.httpClient.post(apiUri + "/v1/" + servicePath + ".json", request, this.userAuthHeader);
+        };
         return ListingClient;
     }());
     ListingProxy.ListingClient = ListingClient;

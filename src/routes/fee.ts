@@ -4,12 +4,6 @@ import { TMTokenBearerSingature } from "../utility/TMAuthData";
 // Clients
 import  { ListingProxy } from "../ProxyModule";
 
-// Schemas
-import  { 
-            Listing,
-            ListingFee
-        } from "../SchemaModule";
-
 export let router = express.Router();
 
 router.route("/").post(function(req: express.Request, res: express.Response, next: Function) {
