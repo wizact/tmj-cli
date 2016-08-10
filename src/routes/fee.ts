@@ -23,3 +23,21 @@ router.route("/").put(function(req: express.Request, res: express.Response, next
         res.status(400).json(err.message);
     });
 });
+
+router.route("/relist").post(function(req: express.Request, res: express.Response, next: Function) {
+    let listingClient = new ListingProxy.ListingClient(<TMTokenBearerSingature>req["user"]);
+    listingClient.relistListingFee(req.body).then(result => {
+        res.status(result.StatusCode).json(result.Response);
+    }).catch(err => {
+        res.status(400).json(err.message);
+    });
+});
+
+router.route("/relistWithEdit").post(function(req: express.Request, res: express.Response, next: Function) {
+    let listingClient = new ListingProxy.ListingClient(<TMTokenBearerSingature>req["user"]);
+    listingClient.relistWithEditListingFee(req.body).then(result => {
+        res.status(result.StatusCode).json(result.Response);
+    }).catch(err => {
+        res.status(400).json(err.message);
+    });
+});

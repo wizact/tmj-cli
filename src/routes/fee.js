@@ -18,4 +18,20 @@ exports.router.route("/").put(function (req, res, next) {
         res.status(400).json(err.message);
     });
 });
+exports.router.route("/relist").post(function (req, res, next) {
+    var listingClient = new ProxyModule_1.ListingProxy.ListingClient(req["user"]);
+    listingClient.relistListingFee(req.body).then(function (result) {
+        res.status(result.StatusCode).json(result.Response);
+    }).catch(function (err) {
+        res.status(400).json(err.message);
+    });
+});
+exports.router.route("/relistWithEdit").post(function (req, res, next) {
+    var listingClient = new ProxyModule_1.ListingProxy.ListingClient(req["user"]);
+    listingClient.relistWithEditListingFee(req.body).then(function (result) {
+        res.status(result.StatusCode).json(result.Response);
+    }).catch(function (err) {
+        res.status(400).json(err.message);
+    });
+});
 //# sourceMappingURL=fee.js.map

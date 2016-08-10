@@ -27,4 +27,28 @@ exports.router.route("/").delete(function (req, res, next) {
         res.status(400).json(err.message);
     });
 });
+exports.router.route("/clone").post(function (req, res, next) {
+    var listingClient = new ProxyModule_1.ListingProxy.ListingClient(req["user"]);
+    listingClient.sellSimilarListing(req.body).then(function (result) {
+        res.status(result.StatusCode).json(result.Response);
+    }).catch(function (err) {
+        res.status(400).json(err.message);
+    });
+});
+exports.router.route("/relist").post(function (req, res, next) {
+    var listingClient = new ProxyModule_1.ListingProxy.ListingClient(req["user"]);
+    listingClient.relistListing(req.body).then(function (result) {
+        res.status(result.StatusCode).json(result.Response);
+    }).catch(function (err) {
+        res.status(400).json(err.message);
+    });
+});
+exports.router.route("/relistWithEdit").post(function (req, res, next) {
+    var listingClient = new ProxyModule_1.ListingProxy.ListingClient(req["user"]);
+    listingClient.relistWithEditListing(req.body).then(function (result) {
+        res.status(result.StatusCode).json(result.Response);
+    }).catch(function (err) {
+        res.status(400).json(err.message);
+    });
+});
 //# sourceMappingURL=listing.js.map

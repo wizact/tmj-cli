@@ -173,9 +173,59 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"Category\": 5007,\n    \"Title\": \"This is the title\",\n    \"Description\": [ \"Description is here\" ],\n    \"Duration\": 30,\n    \"IsClassified\": true,\n    \"IsFeatured\": true,\n    \"Attributes\": [\n        { \"Name\": \"Company\", \"Value\": \"ACME\" }, \n        { \"Name\": \"District\", \"Value\": \"2\" },\n        { \"Name\": \"JobType\", \"Value\": \"FT\" },\n        { \"Name\": \"ContractDuration\", \"Value\": \"PER\" },\n        { \"Name\": \"PayAndBenefits\", \"Value\": \"PayAndBenefits\" },\n        { \"Name\": \"ApproximatePay\", \"Value\": \"20000\" },\n        { \"Name\": \"ApproximatePayRangeHigh\", \"Value\": \"20000\" },\n        { \"Name\": \"IsWorkPermitNeeded\", \"Value\": \"1\" },\n        { \"Name\": \"YourReference\", \"Value\": \"my ref\" },\n        { \"Name\": \"ContactName\", \"Value\": \"ContactName\" },\n        { \"Name\": \"EmailAddress\", \"Value\": \"test@example.com\" },\n        { \"Name\": \"ApplicationUrl\", \"Value\": \"http://example.com/apply\" },\n        { \"Name\": \"Phone1Prefix\", \"Value\": \"021\" },\n        { \"Name\": \"Phone1Number\", \"Value\": \"08385199\" },\n        { \"Name\": \"Phone2Prefix\", \"Value\": \"021\" },\n        { \"Name\": \"Phone2Number\", \"Value\": \"08385199\" },\n        { \"Name\": \"PreferredApplicationMode\", \"Value\": \"E\" },\n        { \"Name\": \"ApplicationInstructions\", \"Value\": \"Apply via email\" },\n        { \"Name\": \"GeneralManagement\", \"Value\": \"1\" },\n        { \"Name\": \"PayType\", \"Value\": \"SALARY\" },\n        { \"Name\": \"Branding\", \"Value\": \"1\" },\n        { \"Name\": \"BrandingBanner\", \"Value\": \"0\" },\n        { \"Name\": \"BrandingLogo\", \"Value\": \"0\" }\n        ],\n    \"ExternalReferenceId\": \"test_ref\",\n    \"ReturnListingDetails\": true,\n    \"IsBranded\": true,\n    \"ShortDescription\": \"Short Description\",\n    \"ListingId\": 4765976\n}"
+							"raw": "{\n    \"Category\": 5007,\n    \"Title\": \"This is the title\",\n    \"Description\": [ \"Description is here\" ],\n    \"Duration\": 30,\n    \"IsClassified\": true,\n    \"IsFeatured\": true,\n    \"Attributes\": [\n        { \"Name\": \"Company\", \"Value\": \"ACME\" }, \n        { \"Name\": \"District\", \"Value\": \"2\" },\n        { \"Name\": \"JobType\", \"Value\": \"FT\" },\n        { \"Name\": \"ContractDuration\", \"Value\": \"PER\" },\n        { \"Name\": \"PayAndBenefits\", \"Value\": \"PayAndBenefits\" },\n        { \"Name\": \"ApproximatePay\", \"Value\": \"20000\" },\n        { \"Name\": \"ApproximatePayRangeHigh\", \"Value\": \"20000\" },\n        { \"Name\": \"IsWorkPermitNeeded\", \"Value\": \"1\" },\n        { \"Name\": \"YourReference\", \"Value\": \"my ref\" },\n        { \"Name\": \"ContactName\", \"Value\": \"ContactName\" },\n        { \"Name\": \"EmailAddress\", \"Value\": \"test@example.com\" },\n        { \"Name\": \"ApplicationUrl\", \"Value\": \"http://example.com/apply\" },\n        { \"Name\": \"Phone1Prefix\", \"Value\": \"021\" },\n        { \"Name\": \"Phone1Number\", \"Value\": \"08385199\" },\n        { \"Name\": \"Phone2Prefix\", \"Value\": \"021\" },\n        { \"Name\": \"Phone2Number\", \"Value\": \"08385199\" },\n        { \"Name\": \"PreferredApplicationMode\", \"Value\": \"E\" },\n        { \"Name\": \"ApplicationInstructions\", \"Value\": \"Apply via email\" },\n        { \"Name\": \"GeneralManagement\", \"Value\": \"1\" },\n        { \"Name\": \"PayType\", \"Value\": \"SALARY\" },\n        { \"Name\": \"Branding\", \"Value\": \"1\" },\n        { \"Name\": \"BrandingBanner\", \"Value\": \"0\" },\n        { \"Name\": \"BrandingLogo\", \"Value\": \"0\" }\n        ],\n    \"ExternalReferenceId\": \"test_ref\",\n    \"ReturnListingDetails\": true,\n    \"IsBranded\": true,\n    \"ShortDescription\": \"Short Description\",\n    \"ListingId\": 4765977\n}"
 						},
 						"description": "Operation to calculate the fee for edition of a Job listing and returns the breakdown of fees applicable to the listing."
+					},
+					"response": []
+				},
+				{
+					"name": "Fee to relist a Job Listing",
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/fee/relist",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ListingId\": 4765976,\n    \"ReturnListingDetails\": true\n}"
+						},
+						"description": "Operation to calculate the fee for relisting a Job listing and returns the breakdown of fees applicable to the listing."
+					},
+					"response": []
+				},
+				{
+					"name": "Fee to relist a Job Listing with edit",
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/fee/relistWithEdit",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Category\": 5007,\n    \"Title\": \"This is the title\",\n    \"Description\": [ \"Description is here\" ],\n    \"Duration\": 30,\n    \"IsClassified\": true,\n    \"IsFeatured\": true,\n    \"Attributes\": [\n        { \"Name\": \"Company\", \"Value\": \"ACME\" }, \n        { \"Name\": \"District\", \"Value\": \"2\" },\n        { \"Name\": \"JobType\", \"Value\": \"FT\" },\n        { \"Name\": \"ContractDuration\", \"Value\": \"PER\" },\n        { \"Name\": \"PayAndBenefits\", \"Value\": \"PayAndBenefits\" },\n        { \"Name\": \"ApproximatePay\", \"Value\": \"20000\" },\n        { \"Name\": \"ApproximatePayRangeHigh\", \"Value\": \"20000\" },\n        { \"Name\": \"IsWorkPermitNeeded\", \"Value\": \"1\" },\n        { \"Name\": \"YourReference\", \"Value\": \"my ref\" },\n        { \"Name\": \"ContactName\", \"Value\": \"ContactName\" },\n        { \"Name\": \"EmailAddress\", \"Value\": \"test@example.com\" },\n        { \"Name\": \"ApplicationUrl\", \"Value\": \"http://example.com/apply\" },\n        { \"Name\": \"Phone1Prefix\", \"Value\": \"021\" },\n        { \"Name\": \"Phone1Number\", \"Value\": \"08385199\" },\n        { \"Name\": \"Phone2Prefix\", \"Value\": \"021\" },\n        { \"Name\": \"Phone2Number\", \"Value\": \"08385199\" },\n        { \"Name\": \"PreferredApplicationMode\", \"Value\": \"E\" },\n        { \"Name\": \"ApplicationInstructions\", \"Value\": \"Apply via email\" },\n        { \"Name\": \"GeneralManagement\", \"Value\": \"1\" },\n        { \"Name\": \"PayType\", \"Value\": \"SALARY\" },\n        { \"Name\": \"Branding\", \"Value\": \"1\" },\n        { \"Name\": \"BrandingBanner\", \"Value\": \"0\" },\n        { \"Name\": \"BrandingLogo\", \"Value\": \"0\" }\n        ],\n    \"ExternalReferenceId\": \"test_ref\",\n    \"ReturnListingDetails\": true,\n    \"IsBranded\": true,\n    \"ShortDescription\": \"Short Description\",\n    \"ListingId\": 4765989\n}"
+						},
+						"description": "Operation to calculate the fee for relisting a Job while letting you to edit the listing."
 					},
 					"response": []
 				}
@@ -257,6 +307,151 @@
 							"raw": "{\n    \"ListingId\": 4765976,\n    \"Reason\":  \"Just testing the withdraw\"\n}"
 						},
 						"description": "Operation to withdraw a Job listing and returns the result of the operation."
+					},
+					"response": []
+				},
+				{
+					"name": "Clone a Job Listing",
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/listing/clone",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ListingId\": 4765976,\n    \"ReturnListingDetails\": true\n}"
+						},
+						"description": "Operation to clone a Job listing and returns the details of the new listing (List Similar)."
+					},
+					"response": [
+						{
+							"name": "Clone Success",
+							"originalRequest": {
+								"url": "{{Protocol}}://{{ServiceUrl}}/listing/clone",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{bearer}}",
+										"enabled": true
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"enabled": true,
+										"description": "The mime type of this content"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ListingId\": 4765976,\n    \"ReturnListingDetails\": true\n}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"name": "Connection",
+									"key": "Connection",
+									"value": "keep-alive",
+									"description": ""
+								},
+								{
+									"name": "Content-Length",
+									"key": "Content-Length",
+									"value": "2305",
+									"description": ""
+								},
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Wed, 10 Aug 2016 10:50:42 GMT",
+									"description": ""
+								},
+								{
+									"name": "ETag",
+									"key": "ETag",
+									"value": "W/\"901-lwLGLeBUOybkLIe71IUnCA\"",
+									"description": ""
+								},
+								{
+									"name": "X-Powered-By",
+									"key": "X-Powered-By",
+									"value": "Express",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 676,
+							"body": "{\"Success\":true,\"Description\":\"Created similar item.\",\"ListingId\":4765987,\"Listing\":{\"ListingId\":4765987,\"Title\":\"This is the title 10\",\"Category\":\"5000-5001-5007-\",\"StartPrice\":0,\"StartDate\":\"/Date(1470826242290)/\",\"EndDate\":\"/Date(1473422399000)/\",\"ListingLength\":null,\"IsFeatured\":true,\"AsAt\":\"/Date(1470826242351)/\",\"CategoryPath\":\"/Trade-Me-Jobs/Accounting/Accounts-administrators\",\"RegionId\":12,\"Region\":\"Northland\",\"SuburbId\":67,\"Suburb\":\"Whangarei\",\"NoteDate\":\"/Date(0)/\",\"CategoryName\":\"Accounts administrators\",\"ReserveState\":3,\"Attributes\":[{\"Name\":\"company\",\"DisplayName\":\"Company\",\"Value\":\"ACME\",\"EncodedValue\":\"ACME\"},{\"Name\":\"job_location\",\"DisplayName\":\"Job Location\",\"Value\":\"Whangarei, Northland\"},{\"Name\":\"type\",\"DisplayName\":\"Type\",\"Value\":\"FT\",\"EncodedValue\":\"FT\"},{\"Name\":\"duration\",\"DisplayName\":\"Duration\",\"Value\":\"PER\"},{\"Name\":\"pay_and_benefits\",\"DisplayName\":\"Pay and benefits\",\"Value\":\"PayAndBenefits\",\"EncodedValue\":\"PayAndBenefits\"},{\"Name\":\"application_instructions\",\"DisplayName\":\"Application Instructions\",\"Value\":\"Apply via email\"},{\"Name\":\"contact_name\",\"DisplayName\":\"Contact Name\",\"Value\":\"ContactName\"},{\"Name\":\"contact_type\",\"DisplayName\":\"Contact Type\",\"Value\":\"via_email\"},{\"Name\":\"contact_phone_number\",\"DisplayName\":\"Contact Phone Number\",\"Value\":\"021 08385199\"},{\"Name\":\"your_reference_#\",\"DisplayName\":\"Your reference #\",\"Value\":\"my ref\"},{\"Name\":\"apply_online\",\"DisplayName\":\"Apply Online\",\"Value\":\"http://www.tmsandbox.co.nz/Browse/Jobs/ApplyOnline.aspx?mode=apply_online&referenceId=4765987&sellerId=4004251\"}],\"IsClassified\":true,\"OpenHomes\":[],\"RemainingGalleryPlusRelists\":0,\"PriceDisplay\":\"PayAndBenefits\",\"Member\":{\"MemberId\":4004251,\"Nickname\":\"wizact\",\"DateAddressVerified\":\"/Date(1468843200000)/\",\"DateJoined\":\"/Date(1468843200000)/\",\"UniqueNegative\":0,\"UniquePositive\":0,\"FeedbackCount\":0,\"IsAddressVerified\":true,\"Suburb\":\"Wellington City\",\"Region\":\"Wellington\",\"IsAuthenticated\":true},\"Body\":\"Description is here\\r\\n\\r\\nApplicants for this position should have NZ residency or a valid NZ work visa.\",\"Photos\":[],\"AllowsPickups\":1,\"ShippingOptions\":[],\"PaymentOptions\":\"\",\"ContactDetails\":{\"ContactName\":\"ContactName\",\"PhoneNumber\":\"(021) 08385199\",\"MobilePhoneNumber\":\"(021) 08385199\"},\"CanAddToCart\":false,\"EmbeddedContent\":{},\"ContactCount\":0}}"
+						}
+					]
+				},
+				{
+					"name": "Relist a Job Listing",
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/listing/relist",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ListingId\": 4765989,\n    \"ReturnListingDetails\": true\n}"
+						},
+						"description": "Operation to relist a Job listing and returns the listing details."
+					},
+					"response": []
+				},
+				{
+					"name": "Relist a Job Listing with edit",
+					"request": {
+						"url": "{{Protocol}}://{{ServiceUrl}}/listing/relistWithEdit",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Category\": 5007,\n    \"Title\": \"This is the title\",\n    \"Description\": [ \"Description is here\" ],\n    \"Duration\": 30,\n    \"IsClassified\": true,\n    \"IsFeatured\": true,\n    \"Attributes\": [\n        { \"Name\": \"Company\", \"Value\": \"ACME\" }, \n        { \"Name\": \"District\", \"Value\": \"2\" },\n        { \"Name\": \"JobType\", \"Value\": \"FT\" },\n        { \"Name\": \"ContractDuration\", \"Value\": \"PER\" },\n        { \"Name\": \"PayAndBenefits\", \"Value\": \"PayAndBenefits\" },\n        { \"Name\": \"ApproximatePay\", \"Value\": \"20000\" },\n        { \"Name\": \"ApproximatePayRangeHigh\", \"Value\": \"20000\" },\n        { \"Name\": \"IsWorkPermitNeeded\", \"Value\": \"1\" },\n        { \"Name\": \"YourReference\", \"Value\": \"my ref\" },\n        { \"Name\": \"ContactName\", \"Value\": \"ContactName\" },\n        { \"Name\": \"EmailAddress\", \"Value\": \"test@example.com\" },\n        { \"Name\": \"ApplicationUrl\", \"Value\": \"http://example.com/apply\" },\n        { \"Name\": \"Phone1Prefix\", \"Value\": \"021\" },\n        { \"Name\": \"Phone1Number\", \"Value\": \"08385199\" },\n        { \"Name\": \"Phone2Prefix\", \"Value\": \"021\" },\n        { \"Name\": \"Phone2Number\", \"Value\": \"08385199\" },\n        { \"Name\": \"PreferredApplicationMode\", \"Value\": \"E\" },\n        { \"Name\": \"ApplicationInstructions\", \"Value\": \"Apply via email\" },\n        { \"Name\": \"GeneralManagement\", \"Value\": \"1\" },\n        { \"Name\": \"PayType\", \"Value\": \"SALARY\" },\n        { \"Name\": \"Branding\", \"Value\": \"1\" },\n        { \"Name\": \"BrandingBanner\", \"Value\": \"0\" },\n        { \"Name\": \"BrandingLogo\", \"Value\": \"0\" }\n        ],\n    \"ExternalReferenceId\": \"test_ref\",\n    \"ReturnListingDetails\": true,\n    \"IsBranded\": true,\n    \"ShortDescription\": \"Short Description\",\n    \"ListingId\": 4765989\n}"
+						},
+						"description": "Operation to relist a Job while letting you to edit the listing."
 					},
 					"response": []
 				}

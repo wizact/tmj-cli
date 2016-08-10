@@ -2,7 +2,9 @@ import * as Promise from "bluebird";
 import HttpClient                   from "../utility/HttpClient";
 import { CanonicalResponse }        from "../schema/CanonicalResponse";
 import { ConfigManager }            from "../utility/ConfigManager";
-import {    Listing, 
+import {    
+            CloneListing,
+            Listing, 
             ListingFee, 
             Withdraw 
        }                            from "../SchemaModule";
@@ -22,13 +24,13 @@ export namespace ListingProxy {
             this.userAuthHeader = new TMAuth(ListingClient.configManager).GetUserAuthHeader(user); 
         }
 
-        createListing(request: Listing.Request): Promise<CanonicalResponse<Listing.Response>> {
+        createListing(request: Listing.RequestBase): Promise<CanonicalResponse<Listing.Response>> {
             let servicePath: string = "Selling";
             let apiUri: string = ListingClient.configData.ApiUri; 
             return ListingClient.httpClient.post<Listing.Request, Listing.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
         }
 
-        createListingFee(request: Listing.Request): Promise<CanonicalResponse<ListingFee.Response>> {
+        createListingFee(request: Listing.RequestBase): Promise<CanonicalResponse<ListingFee.Response>> {
             let servicePath: string = "Selling/Fees";
             let apiUri: string = ListingClient.configData.ApiUri; 
             return ListingClient.httpClient.post<Listing.Request, ListingFee.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
@@ -42,6 +44,36 @@ export namespace ListingProxy {
 
         editListingFee(request: Listing.Request): Promise<CanonicalResponse<ListingFee.Response>> {
             let servicePath: string = "Selling/EditFees";
+            let apiUri: string = ListingClient.configData.ApiUri; 
+            return ListingClient.httpClient.post<Listing.Request, ListingFee.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
+        }
+
+        relistListingFee(request: CloneListing.Request): Promise<CanonicalResponse<ListingFee.Response>> {
+            let servicePath: string = "Selling/RelistFees";
+            let apiUri: string = ListingClient.configData.ApiUri; 
+            return ListingClient.httpClient.post<CloneListing.Request, ListingFee.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
+        }
+
+        relistWithEditListingFee(request: Listing.Request): Promise<CanonicalResponse<ListingFee.Response>> {
+            let servicePath: string = "Selling/RelistWithEditsFees";
+            let apiUri: string = ListingClient.configData.ApiUri; 
+            return ListingClient.httpClient.post<Listing.Request, ListingFee.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
+        }
+
+        sellSimilarListing(request: CloneListing.Request): Promise<CanonicalResponse<ListingFee.Response>> {
+            let servicePath: string = "Selling/Similar";
+            let apiUri: string = ListingClient.configData.ApiUri; 
+            return ListingClient.httpClient.post<CloneListing.Request, ListingFee.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
+        }
+
+        relistListing(request: CloneListing.Request): Promise<CanonicalResponse<ListingFee.Response>> {
+            let servicePath: string = "Selling/Relist";
+            let apiUri: string = ListingClient.configData.ApiUri; 
+            return ListingClient.httpClient.post<CloneListing.Request, ListingFee.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
+        }
+
+        relistWithEditListing(request: Listing.Request): Promise<CanonicalResponse<ListingFee.Response>> {
+            let servicePath: string = "Selling/RelistWithEdits";
             let apiUri: string = ListingClient.configData.ApiUri; 
             return ListingClient.httpClient.post<Listing.Request, ListingFee.Response>(`${apiUri}/v1/${servicePath}.json`, request, this.userAuthHeader);
         }
