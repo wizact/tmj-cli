@@ -1,4 +1,4 @@
-export namespace CreateListing {
+export namespace Listing {
 
     export interface Range {
         Lower: string;
@@ -63,7 +63,7 @@ export namespace CreateListing {
         Value: Value;
     }
 
-    export interface Request {
+    export interface RequestBase {
         Category: string;
         Title: string;
         Description: string[];
@@ -79,6 +79,10 @@ export namespace CreateListing {
         IsBranded: boolean;
         ShortDescription: string;
         Photos?: Photo[];
+    }
+
+    export interface Request extends RequestBase {
+        ListingId?: number;
     }
 
     export interface Response {

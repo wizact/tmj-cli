@@ -1,5 +1,5 @@
-import { CreateListing }            from "./schema/CreateListing";
-import { CreateListingFee }         from "./schema/CreateListingFee";
+import { Listing }            from "./schema/Listing";
+import { ListingFee }         from "./schema/ListingFee";
 import { RetrieveCategory }         from "./schema/RetrieveCategory";
 import { RetrieveJobCategory }      from "./schema/RetrieveJobCategory";
 import { RetrieveWatchlist }        from "./schema/RetrieveWatchlist";
@@ -7,8 +7,8 @@ import { RetrieveMember }           from "./schema/RetrieveMember";
 import { RetrieveMemberSummary }    from "./schema/RetrieveMemberSummary";
 
 export  { 
-            CreateListing,
-            CreateListingFee,
+            Listing,
+            ListingFee,
             RetrieveCategory, 
             RetrieveJobCategory, 
             RetrieveWatchlist,  

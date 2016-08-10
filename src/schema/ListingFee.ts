@@ -1,4 +1,4 @@
-export namespace CreateListingFee {
+export namespace ListingFee {
 
     export interface List {
         Date: Date;

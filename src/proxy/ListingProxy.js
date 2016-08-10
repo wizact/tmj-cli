@@ -21,6 +21,16 @@ var ListingProxy;
             var apiUri = ListingClient.configData.ApiUri;
             return ListingClient.httpClient.post(apiUri + "/v1/" + servicePath + ".json", request, this.userAuthHeader);
         };
+        ListingClient.prototype.editListing = function (request) {
+            var servicePath = "Selling/Edit";
+            var apiUri = ListingClient.configData.ApiUri;
+            return ListingClient.httpClient.post(apiUri + "/v1/" + servicePath + ".json", request, this.userAuthHeader);
+        };
+        ListingClient.prototype.editListingFee = function (request) {
+            var servicePath = "Selling/EditFees";
+            var apiUri = ListingClient.configData.ApiUri;
+            return ListingClient.httpClient.post(apiUri + "/v1/" + servicePath + ".json", request, this.userAuthHeader);
+        };
         return ListingClient;
     }());
     ListingProxy.ListingClient = ListingClient;
