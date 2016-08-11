@@ -1,110 +1,23 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Tmj-cli by wizact</title>
+---
+layout: default
+---
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Tmj-cli</h1>
-        <p>Trade Me Jobs API client library (Unofficial)</p>
+<div class="home">
 
-        <p class="view"><a href="https://github.com/wizact/tmj-cli">View the Project on GitHub <small>wizact/tmj-cli</small></a></p>
+  <h1 class="page-heading">Posts</h1>
 
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
 
-        <ul>
-          <li><a href="https://github.com/wizact/tmj-cli/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/wizact/tmj-cli/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/wizact/tmj-cli">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
-<a id="trade-me-jobs-api-client---unofficial" class="anchor" href="#trade-me-jobs-api-client---unofficial" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Trade Me Jobs API Client - (unofficial)</h1>
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
 
-<p>tmj-cli is a client written in TypeScript to expose some of the Job specific functionality in Trade Me API.  </p>
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
 
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
-
-<h3>
-<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h3>
-
-<ul>
-<li>The configuration file is a <code>json</code> file supporting two envrionemts The configuration file name should be <code>tmj-cli.json</code>. We check up to five parent directory relative to <code>process.argv</code> to find it.</li>
-</ul>
-
-<div class="highlight highlight-source-js"><pre>{
-    <span class="pl-s"><span class="pl-pds">"</span>sandbox<span class="pl-pds">"</span></span><span class="pl-k">:</span> { 
-        <span class="pl-s"><span class="pl-pds">"</span>ApiUri<span class="pl-pds">"</span></span> <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>https://api.tmsandbox.co.nz/<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>OAuthRequestTokenUri<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>https://secure.tmsandbox.co.nz/Oauth/RequestToken<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>OAuthAuthorizeUri<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>https://secure.tmsandbox.co.nz/Oauth/Authorize<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>OAuthAccessTokenUri<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>https://secure.tmsandbox.co.nz/Oauth/AccessToken<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>CallBackUrl<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>https://localhost:8080/auth/AccessToken<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>ConsumerKey<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;not set&gt;<span class="pl-pds">"</span></span>, 
-        <span class="pl-s"><span class="pl-pds">"</span>ConsumerSecret<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;not set&gt;<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>SecretKey<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;not set&gt;<span class="pl-pds">"</span></span>
-        },
-    <span class="pl-s"><span class="pl-pds">"</span>production<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
-        <span class="pl-s"><span class="pl-pds">"</span>ApiUri<span class="pl-pds">"</span></span> <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>https://api.trademe.co.nz/<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>OAuthRequestTokenUri<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>https://secure.trademe.co.nz/Oauth/RequestToken<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>OAuthAuthorizeUri<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>https://secure.trademe.co.nz/Oauth/Authorize<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>OAuthAccessTokenUri<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>https://secure.trademe.co.nz/Oauth/AccessToken<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>CallBackUrl<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;not set&gt;<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>ConsumerKey<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;not set&gt;<span class="pl-pds">"</span></span>, 
-        <span class="pl-s"><span class="pl-pds">"</span>ConsumerSecret<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;not set&gt;<span class="pl-pds">"</span></span>,
-        <span class="pl-s"><span class="pl-pds">"</span>SecretKey<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;not set&gt;<span class="pl-pds">"</span></span>
-        }
-}</pre></div>
-
-<ul>
-<li>Alternatively you can run the following command and complete the file manually.</li>
-</ul>
-
-<div class="highlight highlight-source-shell"><pre>npm run setup</pre></div>
-
-<ul>
-<li>The secret key is the key we use to sign JWT and Express sessions.</li>
-<li>CallBackUrl is the Url that TMJ redirects after user's consent. By default in development it is <code>https://localhost:8080/auth/AccessToken</code>. In production, it depends on your deploy path. It should be https.</li>
-</ul>
-
-<h2>
-<a id="build" class="anchor" href="#build" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build</h2>
-
-<p>We are using <code>Grunt</code> for build tasks.</p>
-
-<div class="highlight highlight-source-shell"><pre><span class="pl-c"># to lint and compile</span>
-<span class="pl-k">&gt;</span> grunt
-<span class="pl-c"># to lint only</span>
-<span class="pl-k">&gt;</span> grunt lint-ts
-<span class="pl-c"># to compile only</span>
-<span class="pl-k">&gt;</span> grunt compile-ts
-<span class="pl-c"># to watch for changes (For development you probably want this)</span>
-<span class="pl-k">&gt;</span> grunt watch</pre></div>
-
-<h3>
-<a id="links" class="anchor" href="#links" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Links:</h3>
-
-<ul>
-<li>
-<a href="http://developer.trademe.co.nz/">Official Documentation</a> for Trade Me API</li>
-</ul>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/wizact">wizact</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
-  </body>
-</html>
+</div>
