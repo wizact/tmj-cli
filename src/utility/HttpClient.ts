@@ -48,6 +48,22 @@ export default class HttpClient {
             });
     }
 
+    delete<T>(uri: string, header?: string): Promise<CanonicalResponse<T>> {    
+        let getOptions: request.CoreOptions = this.createRequestOptions(); 
+        getOptions = this.setAuthHeader(getOptions, header);
+
+        return requestAsync.deleteAsync(uri, getOptions)
+            .then((result: any) => {
+                let cr = new CanonicalResponse<T>();
+                cr.StatusCode = result.statusCode;
+                cr.Response = this.map<T>(result);
+                return cr;
+            })
+            .catch((err) => {
+                throw new Error(err);
+            });
+    }
+
     private createRequestOptions(): request.CoreOptions {
         let requestOptions: request.CoreOptions = { };
         return requestOptions;

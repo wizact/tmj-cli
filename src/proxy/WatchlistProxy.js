@@ -16,6 +16,16 @@ var WatchlistProxy;
             var apiUri = WatchlistClient.configData.ApiUri;
             return WatchlistClient.httpClient.get(apiUri + "/v1/" + servicePath + ".json", this.userAuthHeader);
         };
+        WatchlistClient.prototype.addWatchlist = function (listingId) {
+            var servicePath = "MyTradeMe/WatchList/";
+            var apiUri = WatchlistClient.configData.ApiUri;
+            return WatchlistClient.httpClient.post(apiUri + "/v1/" + servicePath + listingId + ".json", null, this.userAuthHeader);
+        };
+        WatchlistClient.prototype.removeWatchlist = function (listingId) {
+            var servicePath = "MyTradeMe/WatchList/";
+            var apiUri = WatchlistClient.configData.ApiUri;
+            return WatchlistClient.httpClient.delete(apiUri + "/v1/" + servicePath + listingId + ".json", this.userAuthHeader);
+        };
         return WatchlistClient;
     }());
     WatchlistProxy.WatchlistClient = WatchlistClient;

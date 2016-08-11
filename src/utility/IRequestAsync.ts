@@ -8,5 +8,8 @@ export namespace RequestAsync {
 
         postAsync(uri: string, options?: request.CoreOptions, callback?: request.RequestCallback): Promise<any>;
         postAsync(uri: string, callback?: request.RequestCallback): Promise<any>;
+
+        deleteAsync(uri: string, options?: request.CoreOptions, callback?: request.RequestCallback): Promise<any>;
+        deleteAsync(uri: string, callback?: request.RequestCallback): Promise<any>;
     }
 }

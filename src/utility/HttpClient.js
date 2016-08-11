@@ -38,6 +38,21 @@ var HttpClient = (function () {
             throw new Error(err);
         });
     };
+    HttpClient.prototype.delete = function (uri, header) {
+        var _this = this;
+        var getOptions = this.createRequestOptions();
+        getOptions = this.setAuthHeader(getOptions, header);
+        return requestAsync.deleteAsync(uri, getOptions)
+            .then(function (result) {
+            var cr = new CanonicalResponse_1.CanonicalResponse();
+            cr.StatusCode = result.statusCode;
+            cr.Response = _this.map(result);
+            return cr;
+        })
+            .catch(function (err) {
+            throw new Error(err);
+        });
+    };
     HttpClient.prototype.createRequestOptions = function () {
         var requestOptions = {};
         return requestOptions;

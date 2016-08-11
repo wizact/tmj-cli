@@ -1,8 +1,11 @@
 import * as Promise                 from "bluebird";
 import HttpClient                   from "../utility/HttpClient";
 import { ConfigManager }            from "../utility/ConfigManager";
-import { RetrieveWatchlist }        from "../schema/RetrieveWatchlist";
-import { CanonicalResponse }        from "../schema/CanonicalResponse";
+import { 
+        GenericResponse,
+        CanonicalResponse,
+        RetrieveWatchlist
+       }                            from "../SchemaModule";
 import { TMTokenBearerSingature }   from "../utility/TMAuthData";
 import { TMAuth }                   from "../utility/TMAuth";
 
@@ -23,6 +26,18 @@ export namespace WatchlistProxy {
             let servicePath: string = "MyTradeMe/Watchlist/All";
             let apiUri: string = WatchlistClient.configData.ApiUri; 
             return WatchlistClient.httpClient.get<RetrieveWatchlist.RetrieveWatchlist>(`${apiUri}/v1/${servicePath}.json`, this.userAuthHeader);
+        }
+
+        addWatchlist(listingId: number): Promise<CanonicalResponse<GenericResponse.Response>> {
+            let servicePath: string = "MyTradeMe/WatchList/";
+            let apiUri: string = WatchlistClient.configData.ApiUri; 
+            return WatchlistClient.httpClient.post<any, GenericResponse.Response>(`${apiUri}/v1/${servicePath}${listingId}.json`, null, this.userAuthHeader);
+        }
+
+        removeWatchlist(listingId: number): Promise<CanonicalResponse<GenericResponse.Response>> {
+            let servicePath: string = "MyTradeMe/WatchList/";
+            let apiUri: string = WatchlistClient.configData.ApiUri; 
+            return WatchlistClient.httpClient.delete<GenericResponse.Response>(`${apiUri}/v1/${servicePath}${listingId}.json`, this.userAuthHeader);
         }
     }
 }
