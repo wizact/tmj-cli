@@ -103,3 +103,103 @@ curl --request POST \
   }
 }
 {% endhighlight %}
+
+## Calculate Fee for Editing a Listing
+**Path:** PUT /fee/
+
+**Authentication:** Required
+
+**Ref:** [Here](http://developer.trademe.co.nz/api-reference/selling-methods/retrieve-fees-for-editing-an-item/) 
+
+**Description:** This method calculates the fee for editing and updating a Job listing. It checks the state of the live listing to find out if the new payload has any more extras attached to that. The request payload is the same as creation fee request, except it contains live listing Id as well. In the response, if the total cost is 0, the fee breakdown will not be present.
+
+**Request**
+{% highlight curl %}
+curl --request PUT \
+  --url /fee/ \
+  --header 'authorization: Bearer JWToken' \
+  --header 'content-type: application/json' \
+  --data <Request Data> 
+{% endhighlight %}
+
+**Request Data**
+{% highlight javascript %}
+{
+    "Category": 5007,
+    "Title": "This is the title",
+    "Description": [ "Description is here" ],
+    "Duration": 30,
+    "IsClassified": true,
+    "IsFeatured": true,
+    "Attributes": [
+        { "Name": "Company", "Value": "ACME" }, 
+        { "Name": "District", "Value": "2" },
+        { "Name": "JobType", "Value": "FT" },
+        { "Name": "ContractDuration", "Value": "PER" },
+        { "Name": "PayAndBenefits", "Value": "PayAndBenefits" },
+        { "Name": "ApproximatePay", "Value": "20000" },
+        { "Name": "ApproximatePayRangeHigh", "Value": "20000" },
+        { "Name": "IsWorkPermitNeeded", "Value": "1" },
+        { "Name": "YourReference", "Value": "my ref" },
+        { "Name": "ContactName", "Value": "ContactName" },
+        { "Name": "EmailAddress", "Value": "test@example.com" },
+        { "Name": "ApplicationUrl", "Value": "http://example.com/apply" },
+        { "Name": "Phone1Prefix", "Value": "021" },
+        { "Name": "Phone1Number", "Value": "01233211" },
+        { "Name": "Phone2Prefix", "Value": "021" },
+        { "Name": "Phone2Number", "Value": "01233211" },
+        { "Name": "PreferredApplicationMode", "Value": "E" },
+        { "Name": "ApplicationInstructions", "Value": "Apply via email" },
+        { "Name": "GeneralManagement", "Value": "1" },
+        { "Name": "PayType", "Value": "SALARY" },
+        { "Name": "Branding", "Value": "1" },
+        { "Name": "BrandingBanner", "Value": "0" },
+        { "Name": "BrandingLogo", "Value": "0" }
+        ],
+    "ExternalReferenceId": "test_ref",
+    "ReturnListingDetails": true,
+    "IsBranded": true,
+    "ShortDescription": "Short Description",
+    "ListingId": 4765977
+}
+{% endhighlight %}
+
+**Response**
+{% highlight javascript %}
+{
+  "Success": true,
+  "Description": "Success.",
+  "TotalCost": 311.5,
+  "FeeItems": {
+    "TotalCount": 3,
+    "Page": 1,
+    "PageSize": 3,
+    "List": [
+      {
+        "Date": "/Date(1471008239037)/",
+        "Type": 105,
+        "Description": "Feature listing",
+        "Credit": 0,
+        "Debit": 99,
+        "Balance": 0
+      },
+      {
+        "Date": "/Date(1471008239037)/",
+        "Type": 0,
+        "Description": "Branded listing",
+        "Credit": 0,
+        "Debit": 34.5,
+        "Balance": 0
+      },
+      {
+        "Date": "/Date(1471008239037)/",
+        "Type": 1,
+        "Description": "Listing fee ($178.00, Accounts administrators category, listing no. 0)",
+        "Credit": 0,
+        "Debit": 178,
+        "Balance": 0
+      }
+    ]
+  }
+}
+{% endhighlight %}
