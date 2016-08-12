@@ -14,6 +14,9 @@ Fee service validates and returns the fee breakdown for a specific listing.
 
 **Description:** This method calculates the fee associated to create a Job listing.   
 
+**Status Codes:**
+200, 400, 401
+
 **Request**
 {% highlight curl %}
 curl --request POST \
@@ -100,7 +103,15 @@ curl --request POST \
         "Balance": 0
       }
     ]
-  }
+  },
+  "ValidationErrors": [
+    {
+      "Message": "Error 1"
+    },
+    {
+      "Message": "Error 2"
+    }
+  ]
 }
 {% endhighlight %}
 
@@ -112,6 +123,9 @@ curl --request POST \
 **Ref:** [Here](http://developer.trademe.co.nz/api-reference/selling-methods/retrieve-fees-for-editing-an-item/) 
 
 **Description:** This method calculates the fee for editing and updating a Job listing. It checks the state of the live listing to find out if the new payload has any more extras attached to that. The request payload is the same as creation fee request, except it contains live listing Id as well. In the response, if the total cost is 0, the fee breakdown will not be present.
+
+**Status Codes:**
+200, 400, 401
 
 **Request**
 {% highlight curl %}
@@ -200,6 +214,91 @@ curl --request PUT \
         "Balance": 0
       }
     ]
-  }
+  },
+  "ValidationErrors": [
+    {
+      "Message": "Error 1"
+    },
+    {
+      "Message": "Error 2"
+    }
+  ]
+}
+{% endhighlight %}
+
+## Calculate Fee for Relisting a Listing
+**Path:** POST /fee/relist
+
+**Authentication:** Required
+
+**Ref:** [Here](http://developer.trademe.co.nz/api-reference/selling-methods/retrieve-fees-for-relisting-an-item/) 
+
+**Description:** This method calculates the fee for relisting a Job listing. The listing should expire first before being relisted. In the response, if the total cost is 0, the fee breakdown will not be present.
+
+**Status Codes:**
+200, 400, 401
+
+**Request**
+{% highlight curl %}
+curl --request POST \
+  --url /fee/relist \
+  --header 'authorization: Bearer JWToken' \
+  --header 'content-type: application/json' \
+  --data <Request Data> 
+{% endhighlight %}
+
+**Request Data**
+{% highlight javascript %}
+{
+    "ListingId": 4765977,
+    "ReturnListingDetails": true
+}
+{% endhighlight %}
+
+**Response**
+{% highlight javascript %}
+{
+  "Success": true,
+  "Description": "Success.",
+  "TotalCost": 311.5,
+  "FeeItems": {
+    "TotalCount": 3,
+    "Page": 1,
+    "PageSize": 3,
+    "List": [
+      {
+        "Date": "/Date(1471008239037)/",
+        "Type": 105,
+        "Description": "Feature listing",
+        "Credit": 0,
+        "Debit": 99,
+        "Balance": 0
+      },
+      {
+        "Date": "/Date(1471008239037)/",
+        "Type": 0,
+        "Description": "Branded listing",
+        "Credit": 0,
+        "Debit": 34.5,
+        "Balance": 0
+      },
+      {
+        "Date": "/Date(1471008239037)/",
+        "Type": 1,
+        "Description": "Listing fee ($178.00, Accounts administrators category, listing no. 0)",
+        "Credit": 0,
+        "Debit": 178,
+        "Balance": 0
+      }
+    ]
+  },
+  "ValidationErrors": [
+    {
+      "Message": "Error 1"
+    },
+    {
+      "Message": "Error 2"
+    }
+  ]
 }
 {% endhighlight %}
