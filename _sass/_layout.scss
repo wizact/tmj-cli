@@ -162,7 +162,9 @@
     }
 }
 
-
+.home {
+    display: flex;
+}
 
 /**
  * Page content
@@ -191,7 +193,7 @@
 
 .post-link {
     display: block;
-    font-size: 24px;
+    font-size: 1.3rem;
 }
 
 

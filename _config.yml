@@ -27,3 +27,8 @@ gist:
   noscript: false
 kramdown:
   math_engine: mathjax
+
+collections:
+  tmj_api_documentation:
+    output: true
+    permalink: /docs/:path/

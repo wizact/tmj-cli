@@ -3,21 +3,32 @@ layout: default
 ---
 
 <div class="home">
-
-  <h1 class="page-heading">Posts</h1>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
+  <div style="width:200px;float:left;">
+    <ul class="post-list">
+    <li>
+          <a class="post-link" href="{{ '/index.html' | prepend: site.baseurl }}">Home</a>
+    </li>
+    {% for page in site.tmj_api_documentation %}
       <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
+          <a class="post-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
       </li>
     {% endfor %}
   </ul>
+  </div>
+  <div style="width:100%">
+    <p>This document is intended for developers who want an easier way to integrate with Trade Me Jobs API. Trade Me Jobs is a subset of Trade Me API. The complete documentation is available at <a href="http://developer.trademe.co.nz/" target=_blank">developer.trademe.co.nz</a>.</p>
+    <br>
+    <p>This is a Node ExpressJs client that acts as a middleware between your application and Trade Me API. To set up the project visit the <a href="docs/setup/">here</a>.</p>
+    <br>
+    
+    <p>You can fork the source code here:</p>
+    <a targe="_blank" href="https://github.com/wizact/tmj-cli">
+      <img alt="Clone on GitHub" src="images/github-logo.png" style="width:64px;height:64px;" />
+    </a> 
+    <br>
+    <br>
+    <p>License:</p>
+    <blockquote>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</blockquote>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
+  </div>
 </div>

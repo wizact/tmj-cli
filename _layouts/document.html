@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body>
+
+    {% include header.html %}
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="home">
+          <div style="width:200px;float:left;">
+            <ul class="post-list">
+            <li>
+                  <a class="post-link" href="{{ '/index.html' | prepend: site.baseurl }}">Home</a>
+            </li>
+            {% for page in site.tmj_api_documentation %}
+              <li>
+                  <a class="post-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+          </div>
+          <div style="width:100%">
+            {{ content }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include footer.html %}
+
+  </body>
+
+</html>
