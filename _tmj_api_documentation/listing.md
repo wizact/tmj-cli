@@ -352,7 +352,8 @@ curl --request PUT \
       "Region": "Wellington",
       "IsAuthenticated": true
     },
-    "Body": "Description is here\r\n\r\nApplicants for this position should have NZ residency or a valid NZ work visa.",
+    "Body": "Description is here\r\n\r\n
+    Applicants for this position should have NZ residency or a valid NZ work visa.",
     "Photos": [],
     "AllowsPickups": 1,
     "ShippingOptions": [],
@@ -407,7 +408,7 @@ curl --request DELETE \
 
 **Ref:** [Here](http://developer.trademe.co.nz/api-reference/selling-methods/sell-similar-from-an-existing-auction-or-classified/) 
 
-**Description:**  
+**Description:** Clones a current live listing and charges the member for the new listing. All the fields are copied one by one. 
 
 **Status Codes:**
 200, 400, 401
@@ -423,12 +424,129 @@ curl --request POST \
 
 **Request Data**
 {% highlight javascript %}
-
+{
+    "ListingId": 4771533,
+    "ReturnListingDetails": true
+}
 {% endhighlight %}
 
 **Response**
 {% highlight javascript %}
-
+{
+  "Success": true,
+  "Description": "Created similar item.",
+  "ListingId": 4771601,
+  "Listing": {
+    "ListingId": 4771601,
+    "Title": "This is the title 10",
+    "Category": "5000-5001-5007-",
+    "StartPrice": 0,
+    "StartDate": "/Date(1471052220370)/",
+    "EndDate": "/Date(1473681599000)/",
+    "ListingLength": null,
+    "IsFeatured": true,
+    "AsAt": "/Date(1471052220464)/",
+    "CategoryPath": "/Trade-Me-Jobs/Accounting/Accounts-administrators",
+    "RegionId": 12,
+    "Region": "Northland",
+    "SuburbId": 67,
+    "Suburb": "Whangarei",
+    "NoteDate": "/Date(0)/",
+    "CategoryName": "Accounts administrators",
+    "ReserveState": 3,
+    "Attributes": [
+      {
+        "Name": "company",
+        "DisplayName": "Company",
+        "Value": "ACME",
+        "EncodedValue": "ACME"
+      },
+      {
+        "Name": "job_location",
+        "DisplayName": "Job Location",
+        "Value": "Whangarei, Northland"
+      },
+      {
+        "Name": "type",
+        "DisplayName": "Type",
+        "Value": "FT",
+        "EncodedValue": "FT"
+      },
+      {
+        "Name": "duration",
+        "DisplayName": "Duration",
+        "Value": "PER"
+      },
+      {
+        "Name": "pay_and_benefits",
+        "DisplayName": "Pay and benefits",
+        "Value": "PayAndBenefits",
+        "EncodedValue": "PayAndBenefits"
+      },
+      {
+        "Name": "application_instructions",
+        "DisplayName": "Application Instructions",
+        "Value": "Apply via email"
+      },
+      {
+        "Name": "contact_name",
+        "DisplayName": "Contact Name",
+        "Value": "ContactName"
+      },
+      {
+        "Name": "contact_type",
+        "DisplayName": "Contact Type",
+        "Value": "via_email"
+      },
+      {
+        "Name": "contact_phone_number",
+        "DisplayName": "Contact Phone Number",
+        "Value": "021 08385199"
+      },
+      {
+        "Name": "your_reference_#",
+        "DisplayName": "Your reference #",
+        "Value": "my ref"
+      },
+      {
+        "Name": "apply_online",
+        "DisplayName": "Apply Online",
+        "Value": "apply online url"
+      }
+    ],
+    "IsClassified": true,
+    "OpenHomes": [],
+    "RemainingGalleryPlusRelists": 0,
+    "PriceDisplay": "PayAndBenefits",
+    "Member": {
+      "MemberId": 4004251,
+      "Nickname": "wizact",
+      "DateAddressVerified": "/Date(1468843200000)/",
+      "DateJoined": "/Date(1468843200000)/",
+      "UniqueNegative": 0,
+      "UniquePositive": 0,
+      "FeedbackCount": 0,
+      "IsAddressVerified": true,
+      "Suburb": "Wellington City",
+      "Region": "Wellington",
+      "IsAuthenticated": true
+    },
+    "Body": "Description is here\r\n\r\n
+    Applicants for this position should have NZ residency or a valid NZ work visa.",
+    "Photos": [],
+    "AllowsPickups": 1,
+    "ShippingOptions": [],
+    "PaymentOptions": "",
+    "ContactDetails": {
+      "ContactName": "ContactName",
+      "PhoneNumber": "(021) 01212121",
+      "MobilePhoneNumber": "(021) 01212121"
+    },
+    "CanAddToCart": false,
+    "EmbeddedContent": {},
+    "ContactCount": 0
+  }
+}
 {% endhighlight %}
 
 ## Relist a Listing
