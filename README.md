@@ -2,6 +2,9 @@
 
 tmj-cli is a client written in TypeScript to expose some of the Job specific functionality in Trade Me API.  
 
+## Documentation
+For a list of available operations please read [this](https://wizact.github.io/tmj-cli/index.html).
+
 ## Usage
 
 ### Setup
