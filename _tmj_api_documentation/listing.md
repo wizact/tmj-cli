@@ -563,7 +563,7 @@ curl --request POST \
 
 **Ref:** [Here](http://developer.trademe.co.nz/api-reference/selling-methods/relist-an-item/) 
 
-**Description:**  
+**Description:**  Relists an expired job listing. The new listing has a new listing Id. The member gets charged for the new listing. 
 
 **Status Codes:**
 200, 400, 401
@@ -579,12 +579,15 @@ curl --request POST \
 
 **Request Data**
 {% highlight javascript %}
-
+{
+    "ListingId": 4765989,
+    "ReturnListingDetails": true
+}
 {% endhighlight %}
 
 **Response**
 {% highlight javascript %}
-
+// Same as Create Listing response
 {% endhighlight %}
 
 ## Relist a Listing with Edit
@@ -610,10 +613,47 @@ curl --request POST \
 
 **Request Data**
 {% highlight javascript %}
-
+{
+    "Category": 5007,
+    "Title": "This is the title",
+    "Description": [ "Description is here" ],
+    "Duration": 30,
+    "IsClassified": true,
+    "IsFeatured": true,
+    "Attributes": [
+        { "Name": "Company", "Value": "ACME" }, 
+        { "Name": "District", "Value": "2" },
+        { "Name": "JobType", "Value": "FT" },
+        { "Name": "ContractDuration", "Value": "PER" },
+        { "Name": "PayAndBenefits", "Value": "PayAndBenefits" },
+        { "Name": "ApproximatePay", "Value": "20000" },
+        { "Name": "ApproximatePayRangeHigh", "Value": "20000" },
+        { "Name": "IsWorkPermitNeeded", "Value": "1" },
+        { "Name": "YourReference", "Value": "my ref" },
+        { "Name": "ContactName", "Value": "ContactName" },
+        { "Name": "EmailAddress", "Value": "test@example.com" },
+        { "Name": "ApplicationUrl", "Value": "http://example.com/apply" },
+        { "Name": "Phone1Prefix", "Value": "021" },
+        { "Name": "Phone1Number", "Value": "021021021" },
+        { "Name": "Phone2Prefix", "Value": "021" },
+        { "Name": "Phone2Number", "Value": "021021021" },
+        { "Name": "PreferredApplicationMode", "Value": "E" },
+        { "Name": "ApplicationInstructions", "Value": "Apply via email" },
+        { "Name": "GeneralManagement", "Value": "1" },
+        { "Name": "PayType", "Value": "SALARY" },
+        { "Name": "Branding", "Value": "1" },
+        { "Name": "BrandingBanner", "Value": "0" },
+        { "Name": "BrandingLogo", "Value": "0" }
+        ],
+    "ExternalReferenceId": "test_ref",
+    "ReturnListingDetails": true,
+    "IsBranded": true,
+    "ShortDescription": "Short Description",
+    "ListingId": 4765979
+}
 {% endhighlight %}
 
 **Response**
 {% highlight javascript %}
-
+// Same as Create Listing response
 {% endhighlight %}
