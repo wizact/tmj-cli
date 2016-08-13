@@ -377,7 +377,7 @@ curl --request PUT \
 
 **Ref:** [Here](http://developer.trademe.co.nz/api-reference/selling-methods/withdraw-an-auction-or-classified/) 
 
-**Description:**  
+**Description:**  Withdraws a current live listing.
 
 **Status Codes:**
 200, 400, 401
@@ -393,12 +393,19 @@ curl --request DELETE \
 
 **Request Data**
 {% highlight javascript %}
-
+{
+    "ListingId": 4771601,
+    "Reason":  "Just testing the withdraw"
+}
 {% endhighlight %}
 
 **Response**
 {% highlight javascript %}
-
+{
+  "Success": true,
+  "Description": "4771601 withdrawn",
+  "ListingId": 4771601
+}
 {% endhighlight %}
 
 ## Clone a Listing
