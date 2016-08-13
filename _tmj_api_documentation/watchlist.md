@@ -18,7 +18,7 @@ Watchlist service provides operations to manage logged-in member watchlist.
 {% highlight curl %}
 curl --request GET \
   --url /watchlist/ \
-  --header 'authorization: Bearer SWToken'
+  --header 'authorization: Bearer JWToken'
 {% endhighlight %}
 
 **Response**
@@ -131,7 +131,7 @@ curl --request GET \
 {% highlight curl %}
 curl --request POST \
   --url /watchlist/:listingId \
-  --header 'authorization: Bearer {{bearer}}'
+  --header 'authorization: Bearer JWToken'
 {% endhighlight %}
 
 **Response**
@@ -156,7 +156,7 @@ curl --request POST \
 {% highlight curl %}
 curl --request DELETE \
   --url /watchlist/:listingId \
-  --header 'authorization: Bearer {{bearer}}'
+  --header 'authorization: Bearer JWToken'
 {% endhighlight %}
 
 **Response**
