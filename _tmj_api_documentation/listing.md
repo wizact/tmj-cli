@@ -37,7 +37,7 @@ curl --request POST \
     "IsFeatured": true,
     "Attributes": [
         { "Name": "Company", "Value": "ACME" }, 
-        { "Name": "District", "Value": "2" },
+        { "Name": "JobDistrict", "Value": "2" },
         { "Name": "JobType", "Value": "FT" },
         { "Name": "ContractDuration", "Value": "PER" },
         { "Name": "PayAndBenefits", "Value": "PayAndBenefits" },
@@ -219,7 +219,7 @@ curl --request PUT \
     "IsFeatured": true,
     "Attributes": [
         { "Name": "Company", "Value": "ACME" }, 
-        { "Name": "District", "Value": "2" },
+        { "Name": "JobDistrict", "Value": "2" },
         { "Name": "JobType", "Value": "FT" },
         { "Name": "ContractDuration", "Value": "PER" },
         { "Name": "PayAndBenefits", "Value": "PayAndBenefits" },
@@ -622,7 +622,7 @@ curl --request POST \
     "IsFeatured": true,
     "Attributes": [
         { "Name": "Company", "Value": "ACME" }, 
-        { "Name": "District", "Value": "2" },
+        { "Name": "JobDistrict", "Value": "2" },
         { "Name": "JobType", "Value": "FT" },
         { "Name": "ContractDuration", "Value": "PER" },
         { "Name": "PayAndBenefits", "Value": "PayAndBenefits" },
