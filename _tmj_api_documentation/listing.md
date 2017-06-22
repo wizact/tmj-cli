@@ -657,3 +657,22 @@ curl --request POST \
 {% highlight javascript %}
 // Same as Create Listing response
 {% endhighlight %}
+
+## Possible Errors
+
+### Application Url
+
+**Status Code**
+200
+
+**Response**
+{% highlight javascript %}
+{
+  Success: false,
+  Description: "For Application details : au"
+}
+{% endhighlight %}
+
+**Reason**
+Setting `PreferredApplicationMode` to `E` to use `ApplicationUrl` for application process is only available for Job Pack and Volume Plan users.
+This feature can be enabled only by account managers per request.
